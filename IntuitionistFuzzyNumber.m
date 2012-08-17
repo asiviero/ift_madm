@@ -98,32 +98,32 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 		end % product by scalar
 		
 		% Operator TFN-WAA for I4FN 
-        function ifn_result = TIFN_WAA (vector_I4FN, vector_weight)
-            size_vector_I4FN = size(vector_I4FN);
-            size_vector_weight = size(vector_weight);
-            
-            if size_vector_I4FN ~= size_vector_weight
-                error('The vector I4FN must be equal the vector weight')
-            end % if
-            
-            nColumns = size_vector_I4FN(2);            
-            
-            for i=1:4
-                ifn_result.valuesSet(i) = 0; % prevent garbage                 
-                for j=1:nColumns
-                    ifn_result.valuesSet(i) = ifn_result.valuesSet(i) + (vector_I4FN(j).valuesSet(i))*(vector_weight(j)); 
-                end % for
-            end % for
-            
-            ifn_result.informationConfidence = 1; % prevent garbage 
-            ifn_result.informationNonConfidence = 1; % prevent garbage 
-            for j=1:nColumns
-               ifn_result.informationConfidence = (ifn_result.informationConfidence)*((1-vector_I4FN(j).informationConfidence)^(vector_weight(j)));
-               ifn_result.informationNonConfidence = (ifn_result.informationNonConfidence)*((vector_I4FN(j).informationNonConfidence)^(vector_weight(j)));
-            end % for
-                ifn_result.informationConfidence = 1 - ifn_result.informationConfidence;
-                
-        end % TFN_WAA
+	        function ifn_result = TIFN_WAA (vector_I4FN, vector_weight)
+	            size_vector_I4FN = size(vector_I4FN);
+	            size_vector_weight = size(vector_weight);
+	            
+	            if size_vector_I4FN ~= size_vector_weight
+	                error('The vector I4FN must be equal the vector weight')
+	            end % if
+	            
+	            nColumns = size_vector_I4FN(2);            
+	            
+	            for i=1:4
+	                ifn_result.valuesSet(i) = 0; % prevent garbage                 
+	                for j=1:nColumns
+	                    ifn_result.valuesSet(i) = ifn_result.valuesSet(i) + (vector_I4FN(j).valuesSet(i))*(vector_weight(j)); 
+	                end % for
+	            end % for
+	            
+	            ifn_result.informationConfidence = 1; % prevent garbage 
+	            ifn_result.informationNonConfidence = 1; % prevent garbage 
+	            for j=1:nColumns
+	               ifn_result.informationConfidence = (ifn_result.informationConfidence)*((1-vector_I4FN(j).informationConfidence)^(vector_weight(j)));
+	               ifn_result.informationNonConfidence = (ifn_result.informationNonConfidence)*((vector_I4FN(j).informationNonConfidence)^(vector_weight(j)));
+	            end % for
+	                ifn_result.informationConfidence = 1 - ifn_result.informationConfidence;
+	                
+	        end % TFN_WAA
 		
 	end % methods			
 end % classdef
