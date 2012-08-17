@@ -98,7 +98,7 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 		end % product by scalar
 		
 		
-		
+		%teste
 		
 	end % methods			
 end % classdef
