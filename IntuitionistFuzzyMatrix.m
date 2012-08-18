@@ -30,29 +30,29 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             ifm.matrixD = matrixD;
 		end % Constructor  
         
-        function vectoRj = calculateVectorRj ()
-            order = size(matrixD);
+        function vectoRj = calculateVectorRj (matrixFuzy)
+            order = size(matrixFuzy.matrixD);
             m = order(1);
             n = order (2);
             
             for j=1:n
                 for i=1:m
-                    sumRjs = sumRjs + matrixD(i,j);
+                    sumRjs = sumRjs + matrixFuzy.matrixD(i,j);
                 end % for
                 vectorRj(j) = (1/m)*(sumRjs);
             end % for            
         end % calculateRj
         
-        function vectorMj = calculateVectorMj ()
-            order = size(matrixD);
+        function vectorMj = calculateVectorMj (vectorRj,matrixFuzy)
+            order = size(matrixFuzy.matrixD);
             m = order(1);
             n = order (2);
             
             for j=1:n
                 for i=1:m
-                    vectorMj = I4FN_fuzzyDistance(matrix(i,j),vectorRj(j));
+                    vectorMj = matrixFuzy.matrixD(i,j).I4FN_fuzzyDistance(matrixFuzy.matrixD(i,j),vectorRj(j));
                 end % for
-            end % for  
+            end % for               
             
         end %calculateVectorMj
         
