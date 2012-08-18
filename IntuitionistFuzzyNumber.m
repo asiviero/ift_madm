@@ -1,18 +1,18 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%																%
-%	Intuitionist Fuzzy Number Class												%
-%																%
-%	Authors: André Pacheco and André Siviero										%
-%	Orienters: Renato Krohling and Rodolfo Lourenzutti									%
-%																%
-%	This file contains the Intuitionist Fuzzy Number class definition. Most of the definitions				%
-%	comes from Chen & Li paper "Dynamic multi-attribute decision making model based on triangular				%
-%	intuitionistic fuzzy numbers", published on Scientia Iranica and available through www.sciencedirect.com		%
-%																%
-%	An intuitionist fuzzy number is defined as a tuple of values defining its pertinence interval, and the confidence	%
-%	and non-confidence of the information, which are usually defined as crisp values.					%
-%																%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	Intuitionist Fuzzy Number Class
+%	
+%	Authors: André Pacheco and André Siviero
+%	Orienters: Renato Krohling and Rodolfo Lourenzutti
+%
+%	This file contains the Intuitionist Fuzzy Number class definition. Most of the definitions
+%	comes from Chen & Li paper "Dynamic multi-attribute decision making model based on triangular
+%	intuitionistic fuzzy numbers", published on Scientia Iranica and available through www.sciencedirect.com
+%
+%	An intuitionist fuzzy number is defined as a tuple of values defining its pertinence interval, and the confidence
+%	and non-confidence of the information.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all copies of a object share the same data
 	properties 
@@ -96,8 +96,35 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 			ifn_result.informationConfidence = 1 - (1-I4FN.informationConfidence)^lambda;
 			ifn_result.informationNonConfidence = (I4FN.informationNonConfidence)^lambda;
 		end % product by scalar
-
-		% Testando git
-				
+		
+		% Operator TFN-WAA for I4FN 
+	        function ifn_result = TIFN_WAA (vector_I4FN, vector_weight)
+	            size_vector_I4FN = size(vector_I4FN);
+	            size_vector_weight = size(vector_weight);
+	            
+	            if size_vector_I4FN ~= size_vector_weight
+	                error('The vector I4FN must be equal the vector weight')
+	            end % if
+	            
+	            nColumns = size_vector_I4FN(2);            
+	            
+	            for i=1:4
+	                ifn_result.valuesSet(i) = 0; % prevent garbage                 
+	                for j=1:nColumns
+	                    ifn_result.valuesSet(i) = ifn_result.valuesSet(i) + (vector_I4FN(j).valuesSet(i))*(vector_weight(j)); 
+	                end % for
+	            end % for
+	            
+	            ifn_result.informationConfidence = 1; % prevent garbage 
+	            ifn_result.informationNonConfidence = 1; % prevent garbage 
+	            for j=1:nColumns
+	               ifn_result.informationConfidence = (ifn_result.informationConfidence)*((1-vector_I4FN(j).informationConfidence)^(vector_weight(j)));
+	               ifn_result.informationNonConfidence = (ifn_result.informationNonConfidence)*((vector_I4FN(j).informationNonConfidence)^(vector_weight(j)));
+	            end % for
+	                ifn_result.informationConfidence = 1 - ifn_result.informationConfidence;
+	                
+	        end % TFN_WAA
+		
 	end % methods			
 end % classdef
+
