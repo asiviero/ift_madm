@@ -6,11 +6,15 @@
 %	Orienters: Renato Krohling and Rodolfo Lourenzutti
 %
 %	This file contains the Intuitionist Fuzzy Number class definition. Most of the definitions
-%	comes from Chen & Li paper "Dynamic multi-attribute decision making model based on triangular
-%	intuitionistic fuzzy numbers", published on Scientia Iranica and available through www.sciencedirect.com
+%	come from Chen & Li paper "Dynamic multi-attribute decision making model based on triangular
+%	intuitionistic fuzzy numbers", published on Scientia Iranica and available through www.sciencedirect.com, however
+%	we are expanding to trapezoidal numbers.
 %
 %	An intuitionist fuzzy number is defined as a tuple of values defining its pertinence interval, and the confidence
-%	and non-confidence of the information.
+%	and non-confidence of the information, defined as crisp values.
+%
+%	In this file we define the IntuitionistFuzzyNumberClass, its constructor, pertinence and non-pertinence,fuzzy addition, 
+%	multiplication, distance and TFN_WAA (an operator defined by Chen & Li).
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -125,9 +129,13 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 	                
 	        end % TFN_WAA
 
+<<<<<<< HEAD
 		%	Trying to sketch lambda-cut representations
 		% Fuzzy Distance - As defined in Chen & Li
 		% 
+=======
+		% Fuzzy Distance - As defined in Chen & Li
+>>>>>>> master
 		function distance = I4FN_fuzzyDistance(I4FN_A,I4FN_B)
 			distance = sqrt(0.5 * ((I4FN_A.informationConfidence - I4FN_B.informationConfidence)^2 + (I4FN_A.informationNonConfidence - I4FN_B.informationNonConfidence)^2 + (I4FN_A.informationConfidence + I4FN_A.informationNonConfidence - I4FN_B.informationConfidence - I4FN_B.informationNonConfidence)^2	)) + sqrt(I4FN_auxIntegral(I4FN_A,I4FN_B));
 		end % distance
