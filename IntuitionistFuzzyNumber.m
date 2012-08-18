@@ -125,8 +125,37 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 	                
 	        end % TFN_WAA
 
-	%%%		%%%
-	
+		%	Trying to sketch lambda-cut representations
+		% Fuzzy Distance - As defined in Chen & Li
+		% 
+		function distance = I4FN_fuzzyDistance(I4FN_A,I4FN_B)
+			distance = sqrt(0.5 * ((I4FN_A.informationConfidence - I4FN_B.informationConfidence)^2 + (I4FN_A.informationNonConfidence - I4FN_B.informationNonConfidence)^2 + (I4FN_A.informationConfidence + I4FN_A.informationNonConfidence - I4FN_B.informationConfidence - I4FN_B.informationNonConfidence)^2	)) + sqrt(I4FN_auxIntegral(I4FN_A,I4FN_B));
+		end % distance
+		
+			% Auxiliary functions to fuzzy distance
+			% Most users will never need to touch these. For details on why they're here, refer to the pdf "distance integral calculus"
+			
+			% alpha function
+			function auxAlpha = I4FN_auxAlpha(I4FN_A,I4FN_B)
+				auxAlpha = (I4FN_A.valuesSet(2) - I4FN_A.valuesSet(1))/I4FN_A.informationConfidence - (I4FN_B.valuesSet(2) - I4FN_B.valuesSet(1))/I4FN_B.informationConfidence;
+			end % alfa
+			
+			% beta function
+			function auxBeta = I4FN_auxBeta(I4FN_A,I4FN_B)
+				auxBeta = (I4FN_B.valuesSet(4) - I4FN_B.valuesSet(3))/I4FN_B.informationConfidence - (I4FN_A.valuesSet(4) - I4FN_A.valuesSet(3))/I4FN_A.informationConfidence;
+			end % beta
+			
+			% integral function
+			function integral = I4FN_auxIntegral(I4FN_A,I4FN_B)
+				% auxiliary vars
+				alpha = I4FN_auxAlpha(I4FN_A,I4FN_B);
+				beta = I4FN_auxBeta(I4FN_A,I4FN_B);
+				aa_minus_ab = I4FN_A.valuesSet(1) - I4FN_B.valuesSet(1);
+				da_minus_db = I4FN_A.valuesSet(4) - I4FN_B.valuesSet(4);
+				
+				integral = (alpha^2 + beta^2)/3 + alpha*aa_minus_ab + beta*da_minus_db + (aa_minus_ab)^2 + (da_minus_db)^2;
+			
+			end % integral
 	end % methods			
 end % classdef
 
