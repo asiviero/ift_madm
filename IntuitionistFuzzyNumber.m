@@ -1,18 +1,18 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%	Intuitionist Fuzzy Number Class
-%	
-%	Authors: André Pacheco and André Siviero
-%	Orienters: Renato Krohling and Rodolfo Lourenzutti
-%
-%	This file contains the Intuitionist Fuzzy Number class definition. Most of the definitions
-%	comes from Chen & Li paper "Dynamic multi-attribute decision making model based on triangular
-%	intuitionistic fuzzy numbers", published on Scientia Iranica and available through www.sciencedirect.com
-%
-%	An intuitionist fuzzy number is defined as a tuple of values defining its pertinence interval, and the confidence
-%	and non-confidence of the information.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%																%
+%	Intuitionist Fuzzy Number Class												%
+%																%
+%	Authors: André Pacheco and André Siviero										%
+%	Orienters: Renato Krohling and Rodolfo Lourenzutti									%
+%																%
+%	This file contains the Intuitionist Fuzzy Number class definition. Most of the definitions				%
+%	comes from Chen & Li paper "Dynamic multi-attribute decision making model based on triangular				%
+%	intuitionistic fuzzy numbers", published on Scientia Iranica and available through www.sciencedirect.com		%
+%																%
+%	An intuitionist fuzzy number is defined as a tuple of values defining its pertinence interval, and the confidence	%
+%	and non-confidence of the information, which are usually defined as crisp values.					%
+%																%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all copies of a object share the same data
 	properties 
@@ -98,7 +98,7 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 		end % product by scalar
 		
 		
-		
+		% Testando git
 		
 	end % methods			
 end % classdef
