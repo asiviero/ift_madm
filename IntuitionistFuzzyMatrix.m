@@ -16,7 +16,9 @@
 classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all copies of a object share the same data
 	properties 
 	        vector_cost_or_benefit
-	        matrixD        
+	        matrixD
+	        vectorR
+	                
 	end % properties
 	
 	methods
@@ -67,6 +69,44 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             end % for               
             
         end %calculateVectorMjNormalized  
+        
+        
+        % Normalize Decision Matrix
+        function normalizeDecisionMatrix(fuzzyMatrix)
+            order = size(fuzzyMatrix.matrixD);
+            m = order(1);
+            n = order (2);
+            
+            for j = 1:n
+            	d_values = zeros(1,m);
+
+		% Getting d values
+            	for i=1:m
+            		d_values(i) = fuzzyMatrix.matrixD(i,j).valuesSet(4);
+            	end % for i
+		vectorAux = sort(d_values);
+		max_d = vectorAux(n);
+		min_d = vectorAux(1);
+
+		% Normalization
+		if fuzzyMatrix.vector_cost_or_benefit(j) == 1 % benefit
+			for i = 1:m
+				for k = 1:4 
+					fuzzyMatrix.matrixD(i,j).valuesSet(k) /= d_max;
+				end % for k
+			end % for i
+		else % cost
+			for i = 1:m
+				for k = 1:4 
+					fuzzyMatrix.matrixD(i,j).valuesSet(k) = d_min / fuzzyMatrix.matrixD(i,j).valuesSet(5-k);
+				end % for k
+			end % for i
+		
+		end % if
+            	
+            end % for j
+        
+        end % Normalize Decision Matrix
         
     end %methods
     
