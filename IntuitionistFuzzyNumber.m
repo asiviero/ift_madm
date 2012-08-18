@@ -58,6 +58,17 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 			
 		end % Constructor
 		
+		% Display Function
+		function display(I4FN)
+			disp(' ')
+			disp([inputname(1) ' =']);
+			disp(' ');
+			fprintf(1,'< ( %g , %g , %g , %g ) , %g , %g >',I4FN.valuesSet(1),I4FN.valuesSet(2),I4FN.valuesSet(3),I4FN.valuesSet(4),I4FN.informationConfidence, I4FN.informationNonConfidence)	
+			disp(' ');
+			disp(' ');	
+		end % Display
+		
+		
 		
 		% Pertinence Function - as defined in Chen & Li
 		function pertinence = I4FN_pertinence(I4FN,x)
