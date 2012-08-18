@@ -55,6 +55,18 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             end % for               
             
         end %calculateVectorMj
+
+        function vectorMj_normalized = calculateVectorMjNormalized (vectorMj)
+            order = size(vectorMj);
+            n = order (2);
+            vectorAux = sort(vectorMj);
+            max = vectorAux(n);
+            
+            for j=1:n
+                vectorMj_normalized(j) = vectorMj(j)/max;
+            end % for               
+            
+        end %calculateVectorMjNormalized  
         
     end %methods
     
