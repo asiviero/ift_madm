@@ -40,10 +40,16 @@ classdef IntuiniotistFuzzyMatrix < handle % Handle proprierty assures that all c
                     sumRjs = sumRjs + matrixD(i,j);
                 end % for
                 vectorRj(j) = (1/m)*(sumRjs);
-            end % for
-            
-            
+            end % for            
         end % calculateRj
+        
+        function vectorMj = calculateVectorMj ()
+            order = size(matrixD);
+            m = order(1);
+            n = order (2);
+            
+            
+        end %calculateVectorMj
         
     end %methods
     
