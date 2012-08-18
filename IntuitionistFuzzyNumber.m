@@ -147,12 +147,12 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 			
 			% alpha function
 			function auxAlpha = I4FN_auxAlpha(I4FN_A,I4FN_B)
-				auxAlpha = (I4FN_A.valuesSet(2) - I4FN_A.valuesSet(1))/I4FN_A.informationConfidence - (I4FN_B.valuesSet(2) - I4FN_B.valuesSet(1))/I4FN_B.informationConfidence;
+				auxAlpha = (I4FN_A.valuesSet(2) - I4FN_A.valuesSet(1)) - (I4FN_B.valuesSet(2) - I4FN_B.valuesSet(1));
 			end % alfa
 			
 			% beta function
 			function auxBeta = I4FN_auxBeta(I4FN_A,I4FN_B)
-				auxBeta = (I4FN_B.valuesSet(4) - I4FN_B.valuesSet(3))/I4FN_B.informationConfidence - (I4FN_A.valuesSet(4) - I4FN_A.valuesSet(3))/I4FN_A.informationConfidence;
+				auxBeta = (I4FN_B.valuesSet(4) - I4FN_B.valuesSet(3)) - (I4FN_A.valuesSet(4) - I4FN_A.valuesSet(3));
 			end % beta
 			
 			% integral function
