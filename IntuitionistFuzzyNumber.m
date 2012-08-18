@@ -30,7 +30,7 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 		%Constructor
 		function ifn = IntuitionistFuzzyNumber(valuesSet,informationConfidence,informationNonConfidence)
 			if nargin == 0 
-		            error('No input')			
+		            return			
 			end
 			
 			if isequal(size(valuesSet),[1 4]) || isequal(size(valuesSet),[4 1]) % trapezoidal Intuitionistic Fuzzy Number (I4FN)
@@ -60,11 +60,28 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 		
 		% Display Function
 		function display(I4FN)
-			disp(' ')
-			disp([inputname(1) ' =']);
-			disp(' ');
-			fprintf(1,'< ( %g , %g , %g , %g ) , %g , %g >',I4FN.valuesSet(1),I4FN.valuesSet(2),I4FN.valuesSet(3),I4FN.valuesSet(4),I4FN.informationConfidence, I4FN.informationNonConfidence)	
-			disp(' ');
+			sizeI4FN = size(I4FN);
+			if(isequal(sizeI4FN,[1 1]))
+				disp(' ')
+				disp([inputname(1) ' =']);
+				disp(' ');
+				fprintf(1,'< ( %g , %g , %g , %g ) , %g , %g >',I4FN.valuesSet(1),I4FN.valuesSet(2),I4FN.valuesSet(3),I4FN.valuesSet(4),I4FN.informationConfidence, I4FN.informationNonConfidence)	
+				disp(' ');
+			else
+				disp(' ')
+				disp([inputname(1) ' =']);
+				disp(' ');
+				rows = sizeI4FN(1);
+				columns = sizeI4FN(2);
+				
+				for i = 1:rows
+					for j = 1:columns;
+						fprintf(1,'< ( %g , %g , %g , %g ) , %g , %g >	',I4FN(i,j).valuesSet(1),I4FN(i,j).valuesSet(2),I4FN(i,j).valuesSet(3),I4FN(i,j).valuesSet(4),I4FN(i,j).informationConfidence, I4FN(i,j).informationNonConfidence)	
+
+					end
+					disp(' ');
+				end
+			end
 			disp(' ');	
 		end % Display
 		
