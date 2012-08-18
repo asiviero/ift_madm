@@ -125,7 +125,8 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 	                
 	        end % TFN_WAA
 
-	%%%		
+	%%%		%%%
+	
 	end % methods			
 end % classdef
 
