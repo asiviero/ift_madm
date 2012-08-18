@@ -124,7 +124,8 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 	                ifn_result.informationConfidence = 1 - ifn_result.informationConfidence;
 	                
 	        end % TFN_WAA
-		
+
+	%%%		
 	end % methods			
 end % classdef
 
