@@ -13,10 +13,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-classdef IntuiniotistFuzzyMatrix < handle % Handle proprierty assures that all copies of a object share the same data
+classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all copies of a object share the same data
 	properties 
-        vector_cost_or_benefit
-        matrixD        
+	        vector_cost_or_benefit
+	        matrixD        
 	end % properties
 	
 	methods
