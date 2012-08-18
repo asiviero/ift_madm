@@ -2,7 +2,7 @@
 %
 %	IntuiniotistFuzzyMatrix
 %	
-%	Authors: André Pacheco and André Siviero
+%	Authors: Andrï¿½ Pacheco and Andrï¿½ Siviero
 %	Orienters: Renato Krohling and Rodolfo Lourenzutti
 %
 %	This file contains the class Intuiniotist Fuzzy Matrix. Most of the definitions
@@ -48,6 +48,11 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             m = order(1);
             n = order (2);
             
+            for j=1:n
+                for i=1:m
+                    vectorMj = I4FN_fuzzyDistance(matrix(i,j),vectorRj(j));
+                end % for
+            end % for  
             
         end %calculateVectorMj
         
