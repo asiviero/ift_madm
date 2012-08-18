@@ -35,6 +35,13 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 			
 			if isequal(size(valuesSet),[1 4]) || isequal(size(valuesSet),[4 1]) % trapezoidal Intuitionistic Fuzzy Number (I4FN)
 				ifn.valuesSet = valuesSet;	
+			elseif	isequal(size(valuesSet),[1 3]) || isequal(size(valuesSet),[3 1]) % triangular Intuitionistic Fuzzy Number (I3FN)
+				auxValuesSet = zeros(1,4);
+				auxValuesSet(1) = valuesSet(1);
+				auxValuesSet(2) = valuesSet(2);
+				auxValuesSet(3) = valuesSet(2);
+				auxValuesSet(4) = valuesSet(3);												
+				ifn.valuesSet = auxValuesSet;	
 			else	
 				error('Values Set is not a 4-element array')
 			end
@@ -56,9 +63,9 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 		function pertinence = I4FN_pertinence(I4FN,x)
 		    if x >= I4FN.valuesSet(1) && x < I4FN.valuesSet(2)
 		        pertinence = (x-I4FN.valuesSet(1))*I4FN.informationConfidence / (I4FN.valuesSet(2) - I4FN.valuesSet(1));
-		    elseif x >= I4FN.valuesSet(2) && x < I4FN.valuesSet(3)
+		    elseif x >= I4FN.valuesSet(2) && x <= I4FN.valuesSet(3)
 		        pertinence = I4FN.informationConfidence;
-		    elseif x >= I4FN.valuesSet(3) && x < I4FN.valuesSet(4)
+		    elseif x > I4FN.valuesSet(3) && x < I4FN.valuesSet(4)
 		        pertinence = (I4FN.valuesSet(4)-x)*I4FN.informationConfidence / (I4FN.valuesSet(4) - I4FN.valuesSet(3));
 		        else pertinence = 0;
 		    end
@@ -68,9 +75,9 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 		function non_pertinence = I4FN_non_pertinence(I4FN,x)
 		    if x >= I4FN.valuesSet(1) && x < I4FN.valuesSet(2)
 		        non_pertinence = (I4FN.valuesSet(2) - x + I4FN.informationNonConfidence*(x-I4FN.valuesSet(1))) / (I4FN.valuesSet(2) - I4FN.valuesSet(1));
-		    elseif x >= I4FN.valuesSet(2) && x < I4FN.valuesSet(3)
+		    elseif x >= I4FN.valuesSet(2) && x <= I4FN.valuesSet(3)
 		        non_pertinence = I4FN.informationNonConfidence;
-		    elseif x >= I4FN.valuesSet(3) && x < I4FN.valuesSet(4)
+		    elseif x > I4FN.valuesSet(3) && x < I4FN.valuesSet(4)
 		        non_pertinence = (x - I4FN.valuesSet(3) + I4FN.informationNonConfidence*(I4FN.valuesSet(4))) / (I4FN.valuesSet(4) - I4FN.valuesSet(3));
 		        else non_pertinence = 1;
 		    end
@@ -129,13 +136,8 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 	                
 	        end % TFN_WAA
 
-<<<<<<< HEAD
-		%	Trying to sketch lambda-cut representations
 		% Fuzzy Distance - As defined in Chen & Li
-		% 
-=======
-		% Fuzzy Distance - As defined in Chen & Li
->>>>>>> master
+
 		function distance = I4FN_fuzzyDistance(I4FN_A,I4FN_B)
 			distance = sqrt(0.5 * ((I4FN_A.informationConfidence - I4FN_B.informationConfidence)^2 + (I4FN_A.informationNonConfidence - I4FN_B.informationNonConfidence)^2 + (I4FN_A.informationConfidence + I4FN_A.informationNonConfidence - I4FN_B.informationConfidence - I4FN_B.informationNonConfidence)^2	)) + sqrt(I4FN_auxIntegral(I4FN_A,I4FN_B));
 		end % distance
