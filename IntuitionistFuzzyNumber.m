@@ -61,12 +61,16 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 		% Display Function
 		function display(I4FN)
 			sizeI4FN = size(I4FN);
+			
+			% Single Fuzzy Number
 			if(isequal(sizeI4FN,[1 1]))
 				disp(' ')
 				disp([inputname(1) ' =']);
 				disp(' ');
 				fprintf(1,'< ( %g , %g , %g , %g ) , %g , %g >',I4FN.valuesSet(1),I4FN.valuesSet(2),I4FN.valuesSet(3),I4FN.valuesSet(4),I4FN.informationConfidence, I4FN.informationNonConfidence)	
 				disp(' ');
+				
+			% Matrix of Fuzzy Numbers
 			else
 				disp(' ')
 				disp([inputname(1) ' =']);
@@ -122,7 +126,18 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 		end % sum
 		
 		% Product By Scalar
-		function ifn_result = mtimes(I4FN, lambda)
+		function ifn_result = mtimes(param_1, param_2)
+            ifn_result = IntuitionistFuzzyNumber;
+            
+            if isa(param_1,'IntuitionistFuzzyNumber')
+                I4FN = param_1;
+                lambda = param_2;              
+            elseif isa(param_2,'IntuitionistFuzzyNumber')
+                I4FN = param_2;
+                lambda = param_1;                          
+            end
+            
+            
 			if lambda >= 0
 				for j=1:4
 				    ifn_result.valuesSet(j) = I4FN.valuesSet(j) * lambda;

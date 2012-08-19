@@ -85,7 +85,7 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             		d_values(i) = fuzzyMatrix.matrixD(i,j).valuesSet(4);
             	end % for i
 		vectorAux = sort(d_values);
-		max_d = vectorAux(n)
+		max_d = vectorAux(m)
 		min_d = vectorAux(1)
 
 		% Normalization
@@ -97,8 +97,11 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
 			end % for i
 		else % cost
 			for i = 1:m
+				buffer = fuzzyMatrix.matrixD(i,j).valuesSet; 
 				for k = 1:4 
-					fuzzyMatrix.matrixD(i,j).valuesSet(k) = min_d / fuzzyMatrix.matrixD(i,j).valuesSet(5-k);
+
+					fuzzyMatrix.matrixD(i,j).valuesSet(k) = min_d / buffer(5-k);
+
 				end % for k
 			end % for i
 		
