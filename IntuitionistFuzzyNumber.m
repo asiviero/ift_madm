@@ -118,6 +118,7 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 		
 		% Sum
 		function ifn_result = plus(ifn_a, ifn_b)
+		  ifn_result = IntuitionistFuzzyNumber;
 		  for j=1:4
 		    ifn_result.valuesSet(j) = ifn_a.valuesSet(j) + ifn_b.valuesSet(j);
 		  end
