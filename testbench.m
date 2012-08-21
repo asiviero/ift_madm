@@ -13,22 +13,19 @@
 % Load the ratings on Ratings.m
 Ratings
 
-D = [ IntuitionistFuzzyNumber(High,.7,.2) IntuitionistFuzzyNumber(Very_High)
+D = [ IntuitionistFuzzyNumber(Very_Low) IntuitionistFuzzyNumber(Medium)
 	IntuitionistFuzzyNumber(Very_High) IntuitionistFuzzyNumber(Low)
 	IntuitionistFuzzyNumber(High) IntuitionistFuzzyNumber(Medium)
-	IntuitionistFuzzyNumber(Low) IntuitionistFuzzyNumber(Very_Low) ];
+	IntuitionistFuzzyNumber(Medium) IntuitionistFuzzyNumber(Medium)
+	IntuitionistFuzzyNumber(Low) IntuitionistFuzzyNumber(Medium) ];
 	
-CBVector = [1 0];
+CBVector = [1 1];
 
 IFM = IntuitionistFuzzyMatrix(CBVector,D);
 
 IFM.matrixD
 IFM.normalizeDecisionMatrix
 IFM.matrixD
-
-IFM.matrixD;
-IFM.normalizeDecisionMatrix;
-IFM.matrixD;
 
 IFM.weights;
 
