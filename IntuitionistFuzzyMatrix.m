@@ -44,6 +44,7 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             vectorR = [IntuitionistFuzzyNumber([0 0 0 0],0,1)]; %Initialization
                       
             for j=1:n
+            sumRjs = IntuitionistFuzzyNumber([0 0 0 0],0,1); % Reset sum Rjs            	
                 for i=1:m
                     sumRjs = sumRjs + matrixFuzzy.matrixD(i,j);
                 end % for
@@ -76,17 +77,24 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
            matrixP = zeros(m,n);
            vAux = zeros(1,n);
                      
-           %find de max of the line
+           %find the max of the line
            for i=1:m
                for j=1:n
                     vAux(j)=matrixM(i,j);
                end %for
                vAux = sort(vAux);
                max = vAux(n);
-               for j=1:n
-                    matrixP(i,j) = matrixM(i,j)/max;
-               end %for                
-           end % for
+               
+               if max == 0
+		       for j=1:n
+		            matrixP(i,j) = 0;
+		       end %for                
+		else
+		       for j=1:n
+		            matrixP(i,j) = matrixM(i,j)/max;
+		       end %for                
+		end % if
+	   end % for
         end %normalizeVectorMj        
         
         % find entropy
@@ -105,8 +113,9 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
                     P(i) = matrixP(i,j);
                 end %for
                 
+                P
                 for i=1:m
-                    aux1 = (P(i))/sum(P); 
+                    aux1 = (P(i))/sum(P);
                     aux2 = aux2 + (aux1*(log(aux1)));
                 end %for
                 en(j) = (-1/log(m))*aux2;
@@ -133,14 +142,17 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             
             for j = 1:n
             	d_values = zeros(m,1);
+            	a_values = zeros(m,1);
 
-		% Getting d values
+		% Getting d and a values
             	for i=1:m
             		d_values(i) = fuzzyMatrix.matrixD(i,j).valuesSet(4);
+			a_values(i) = fuzzyMatrix.matrixD(i,j).valuesSet(1);            		
             	end % for i
-            vectorAux = sort(d_values);
-            max_d = vectorAux(m);
-            min_d = vectorAux(1);
+            vectorAuxD = sort(d_values);
+            vectorAuxA = sort(a_values)
+            max_d = vectorAuxD(m);
+            min_a = vectorAuxA(1);
 
 
 		% Normalization
@@ -155,7 +167,7 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
 				buffer = fuzzyMatrix.matrixD(i,j).valuesSet; 
 				for k = 1:4 
 
-					fuzzyMatrix.matrixD(i,j).valuesSet(k) = min_d / buffer(5-k);
+					fuzzyMatrix.matrixD(i,j).valuesSet(k) = min_a / buffer(5-k);
 
 				end % for k
 			end % for i
