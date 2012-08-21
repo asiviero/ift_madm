@@ -36,15 +36,15 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             
 		end % Constructor  
         
+        %finding the vector rj
         function vectorR = calculateVectorRj (matrixFuzzy)
             order = size(matrixFuzzy.matrixD);
             m = order(1);
             n = order (2);
-            sumRjs = IntuitionistFuzzyNumber([0 0 0 0],0,1); %Initialization
             vectorR = [IntuitionistFuzzyNumber([0 0 0 0],0,1)]; %Initialization
                       
             for j=1:n
-            sumRjs = IntuitionistFuzzyNumber([0 0 0 0],0,1); % Reset sum Rjs            	
+                sumRjs = IntuitionistFuzzyNumber([0 0 0 0],0,1); % Initialization and Reset sum Rjs            	
                 for i=1:m
                     sumRjs = sumRjs + matrixFuzzy.matrixD(i,j);
                 end % for
@@ -52,6 +52,7 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             end % for            
         end % calculateRj
         
+        %finding the matrix M and, consequently, the vectors Mj's
         function matrixM = calculateMatrixM (matrixFuzzy)
             vectorR = [IntuitionistFuzzyNumber([0 0 0 0],0,1)]; %Initialization
             vectorR = matrixFuzzy.calculateVectorRj;    
@@ -59,42 +60,40 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             m = order(1);
             n = order (2);
             matrixM = zeros(m,n);
-            
-            for j=1:n
+                                 
+            for j=1:n                
                 for i=1:m
-                   matrixM(i,j) = I4FN_fuzzyDistance(matrixFuzzy.matrixD(i,j),vectorR(j));
-
-                end % for
-            end % for               
-            
+                    matrixM(i,j) = I4FN_fuzzyDistance(matrixFuzzy.matrixD(i,j),vectorR(j));
+                end %for
+            end% end
+            % Above was calculated the matrix of distances. To make it
+            % matrixM, we need to find the trapose matrix it
+            matrixM = matrixM'; 
+            % The line one of matrixM is equals to vector M1. And so on...
         end %calculateVectorMj
         
         function matrixP = normalizeMatrixM (matrixFuzzy)
            matrixM = matrixFuzzy.calculateMatrixM;
-           order = size(matrixFuzzy.matrixD);
+           order = size(matrixM);
            m = order(1);
            n = order (2);
-           matrixP = zeros(m,n);
-           vAux = zeros(1,n);
-                     
-           %find the max of the line
+           vectorM = zeros(1,n);
+           matrixP = zeros (m,n);
+
            for i=1:m
+               max = 0; % value max of the line
                for j=1:n
-                    vAux(j)=matrixM(i,j);
+                    vectorM(j) = matrixM(i,j);                   
                end %for
-               vAux = sort(vAux);
-               max = vAux(n);
+               vectorM = sort(vectorM);
+               max = vectorM(n);
                
-               if max == 0
-		       for j=1:n
-		            matrixP(i,j) = 0;
-		       end %for                
-		else
-		       for j=1:n
-		            matrixP(i,j) = matrixM(i,j)/max;
-		       end %for                
-		end % if
-	   end % for
+               for j=1:n
+                   matrixP(i,j) = (matrixM(i,j))/max;
+               end %for               
+           end %for  
+           % The transpose matrix equals the matrixP
+           matrixP = matrixP'            
         end %normalizeVectorMj        
         
         % find entropy
@@ -112,8 +111,6 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
                 for i=1:m
                     P(i) = matrixP(i,j);
                 end %for
-                
-                P
                 for i=1:m
                     aux1 = (P(i))/sum(P);
                     aux2 = aux2 + (aux1*(log(aux1)));
@@ -123,15 +120,16 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             end %for      
         end %entropy       
        
+        % finding the vector weights os the matrixD
         function weights(matrixFuzzy)
             en = matrixFuzzy.entropy;
             order = size(en);
             n = order(2);
-            sumek = sum(en);
+            sum_ek = sum(en);
             for j=1:n
-                matrixFuzzy.vectorW(j) = (1-en(j))/(n-sumek);
+                matrixFuzzy.vectorW(j) = (1-en(j))/(n-sum_ek);
             end %for            
-        end %weights
+        end %weights       
         
         
         % Normalize Decision Matrix
