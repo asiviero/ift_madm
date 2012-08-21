@@ -21,8 +21,17 @@ D = [ IntuitionistFuzzyNumber(High,.7,.2) IntuitionistFuzzyNumber(Very_High)
 CBVector = [1 0];
 
 IFM = IntuitionistFuzzyMatrix(CBVector,D);
+
 IFM.matrixD
 IFM.normalizeDecisionMatrix
 IFM.matrixD
+
+IFM.matrixD;
+IFM.normalizeDecisionMatrix;
+IFM.matrixD;
+
+IFM.weights;
+
+IFM.vectorW
 
 	
