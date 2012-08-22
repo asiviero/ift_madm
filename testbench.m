@@ -16,6 +16,15 @@ Ratings
 D = [ IntuitionistFuzzyNumber(Very_Low) IntuitionistFuzzyNumber(Medium)
 	IntuitionistFuzzyNumber(Very_High) IntuitionistFuzzyNumber(Low)
 	IntuitionistFuzzyNumber(High) IntuitionistFuzzyNumber(Medium)
+	IntuitionistFuzzyNumber(Extremely_Low) IntuitionistFuzzyNumber(Medium)
+	IntuitionistFuzzyNumber(Extremely_High) IntuitionistFuzzyNumber(Medium)
+	IntuitionistFuzzyNumber(Medium) IntuitionistFuzzyNumber(Medium)
+	IntuitionistFuzzyNumber(Medium) IntuitionistFuzzyNumber(Medium)
+	IntuitionistFuzzyNumber(Low) IntuitionistFuzzyNumber(Medium)
+	IntuitionistFuzzyNumber(Extremely_Low) IntuitionistFuzzyNumber(Medium)
+	IntuitionistFuzzyNumber(Medium) IntuitionistFuzzyNumber(Medium)
+	IntuitionistFuzzyNumber(High) IntuitionistFuzzyNumber(Medium)
+	IntuitionistFuzzyNumber(Very_Low) IntuitionistFuzzyNumber(Medium)
 	IntuitionistFuzzyNumber(Medium) IntuitionistFuzzyNumber(Medium)
 	IntuitionistFuzzyNumber(Low) IntuitionistFuzzyNumber(Medium) ];
 	
