@@ -48,6 +48,10 @@ IFM_V = [IFM IFM2]
 agg = aggregateFuzzyMatrixes(IFM_V,[.4 .6])
 agg.matrixD
 
+D(1,1)
+
+D(1,1).I4FN_defuzzificationCOA
+
 %IFM.vectorW = [IntuitionistFuzzyNumber(High) IntuitionistFuzzyNumber(Low)];
 
 	
