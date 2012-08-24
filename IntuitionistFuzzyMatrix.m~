@@ -218,8 +218,7 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             end
             
             if m_dmwv == 1 && n_dmwv ~=1 % vectorize to use in TIFN_WAA
-                decisionMakersWeightVector = decisionMakersWeightVector';
-            end
+                decisionMakersWeightVector = 
         	
         	% Check if number of matrix equals the number of decision makers
         	nFuzzyMatrixes = length(IFM_Vector);
@@ -281,7 +280,7 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             
             % Aggregate Criteria            
             for i = 1:n_decisionMatrix
-                aggregated_vectorW(i) = TIFN_WAA(weightMatrix(:,i),decisionMakersWeightVector);
+                aggregated_vectorW(i) = TIFN_WAA(weightMatrix(:,i),decisionMakersWeightVector');
             end %for
             
             %aggregated_vectorW
