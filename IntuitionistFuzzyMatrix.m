@@ -86,8 +86,9 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
                     vectorM(j) = matrixM(i,j);                   
                end %for
 
-               vectorM
-               max = max(vectorM);
+               
+               vectorM = sort(vectorM);
+               max = vectorM(1);
                
                if max == 0
                     for j=1:n
@@ -108,7 +109,7 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
                end %for               
            end %for  
            % The transpose matrix equals the matrixP
-           matrixP = matrixP'            
+           matrixP = matrixP';            
 
         end %normalizeVectorMj        
         
@@ -120,20 +121,21 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             n = order (2);
             en = zeros (1,n);
             P = zeros (1,n);
-            aux1 = 0; %buffer p1/sum pi
-            aux2 = 0;
+            aux1 = 0; 
             
             for j=1:n
                 for i=1:m
                     P(i) = matrixP(i,j);
                 end %for
-
+                
                 for i=1:m
-                    aux1 = (P(i))/sum(P);
-                    aux2 = aux2 + (aux1*(log(aux1)));
+                    aux1 = aux1 + (P(i) * log(P(i)));
+                    %aux1 = (P(i))/sum(P);
+                    %aux2 = aux2 + (aux1*(log(aux1)));
                 end %for
-                en(j) = (-1/log(m))*aux2
-                aux2 = 0;
+                
+                en(j) = (-1/log(m))*(1/sum(P))*aux1;
+                aux1 = 0;
             end %for      
         end %entropy       
        

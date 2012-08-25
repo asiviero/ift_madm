@@ -14,19 +14,22 @@
 Ratings
 
 D = [ IntuitionistFuzzyNumber(Very_Low) IntuitionistFuzzyNumber(Medium)
-	IntuitionistFuzzyNumber(Very_High) IntuitionistFuzzyNumber(Low)
+	IntuitionistFuzzyNumber(Very_High) IntuitionistFuzzyNumber(Extremely_High)
 	IntuitionistFuzzyNumber(High) IntuitionistFuzzyNumber(Medium)
-	IntuitionistFuzzyNumber(Medium) IntuitionistFuzzyNumber(Medium)
-	IntuitionistFuzzyNumber(Low) IntuitionistFuzzyNumber(Medium) ];
+	IntuitionistFuzzyNumber(Very_High) IntuitionistFuzzyNumber(Medium)
+    %IntuitionistFuzzyNumber(Extremely_High) IntuitionistFuzzyNumber(Medium)
+    IntuitionistFuzzyNumber(Extremely_Low) IntuitionistFuzzyNumber(Medium)
+    IntuitionistFuzzyNumber(Medium) IntuitionistFuzzyNumber(Medium)
+    IntuitionistFuzzyNumber(Low) IntuitionistFuzzyNumber(Medium) ];
 	
-CBVector = [1 0];
+CBVector = [1 1];
 
-IFM = IntuitionistFuzzyMatrix(CBVector,D);
+IFM = IntuitionistFuzzyMatrix(CBVector,D,[1 0]);
 IFM.matrixD;
 IFM.normalizeDecisionMatrix;
 %IFM.matrixD;
 
-%IFM.weights;
+IFM.weights;
 %IFM.vectorW
 
 v = TOPSIS (IFM);
