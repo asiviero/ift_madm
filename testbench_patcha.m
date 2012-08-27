@@ -13,24 +13,25 @@
 % Load the ratings on Ratings.m
 Ratings
 
-D = [ IntuitionistFuzzyNumber(Very_Low) IntuitionistFuzzyNumber(Medium)
-	IntuitionistFuzzyNumber(Very_High) IntuitionistFuzzyNumber(Extremely_High)
-	IntuitionistFuzzyNumber(High) IntuitionistFuzzyNumber(Medium)
-	IntuitionistFuzzyNumber(Very_High) IntuitionistFuzzyNumber(Medium)
-    %IntuitionistFuzzyNumber(Extremely_High) IntuitionistFuzzyNumber(Medium)
-    IntuitionistFuzzyNumber(Extremely_Low) IntuitionistFuzzyNumber(Medium)
-    IntuitionistFuzzyNumber(Medium) IntuitionistFuzzyNumber(Medium)
+D = [ IntuitionistFuzzyNumber(Very_Low) IntuitionistFuzzyNumber(Medium);
+	IntuitionistFuzzyNumber(Very_High) IntuitionistFuzzyNumber(Extremely_High);
+	IntuitionistFuzzyNumber(High) IntuitionistFuzzyNumber(Medium);
+	IntuitionistFuzzyNumber(Very_High) IntuitionistFuzzyNumber(Medium);
+    IntuitionistFuzzyNumber(Extremely_High) IntuitionistFuzzyNumber(Medium);
+    IntuitionistFuzzyNumber(Extremely_Low) IntuitionistFuzzyNumber(Medium);
+    IntuitionistFuzzyNumber(Medium) IntuitionistFuzzyNumber(Medium);
     IntuitionistFuzzyNumber(Low) IntuitionistFuzzyNumber(Medium) ];
 	
 CBVector = [1 1];
 
 IFM = IntuitionistFuzzyMatrix(CBVector,D,[1 0]);
-IFM.matrixD;
+IFM.matrixD
 IFM.normalizeDecisionMatrix;
-%IFM.matrixD;
+IFM.matrixD
 
+IFM.vectorW
 IFM.weights;
-%IFM.vectorW
+IFM.vectorW
 
 v = TOPSIS (IFM);
 
