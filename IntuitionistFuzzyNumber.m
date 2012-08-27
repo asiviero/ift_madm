@@ -118,7 +118,7 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 		end % Pertinence function
 
 		
-		% Sum
+		% Plus
 		function ifn_result = plus(ifn_a, ifn_b)
 		  ifn_result = IntuitionistFuzzyNumber;
 		  for j=1:4
@@ -154,6 +154,24 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 			ifn_result.informationNonConfidence = (I4FN.informationNonConfidence)^lambda;
 		end % product by scalar
 		
+        function ifn_result = sum(I4FN_vector)
+            % Validation
+            
+            % Checks if input is an array
+            I4FN_size = size(I4FN_vector);
+            
+            if (I4FN_size(1) ~= 1 && I4FN_size(2) ~= 1) || ...
+                (min(I4FN_size) ~= 1)
+                
+                error('Input arguments are inconsistent');
+            end % if
+            
+            ifn_result = IntuitionistFuzzyNumber([0 0 0 0],0,1); %Initialization
+            for i=1:max(I4FN_size)
+                ifn_result = ifn_result + I4FN_vector(i);
+            end %for
+        end % sum
+        
 % 		% Operator TIFN-WAA for I4FN 
 % 	        function ifn_result = TIFN_WAA (vector_I4FN, vector_weight)
 %                 
