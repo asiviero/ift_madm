@@ -154,35 +154,66 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 			ifn_result.informationNonConfidence = (I4FN.informationNonConfidence)^lambda;
 		end % product by scalar
 		
-		% Operator TIFN-WAA for I4FN 
-	        function ifn_result = TIFN_WAA (vector_I4FN, vector_weight)
-                
-                ifn_result = IntuitionistFuzzyNumber;
-	            size_vector_I4FN = size(vector_I4FN);
-	            size_vector_weight = size(vector_weight);
-	            
-	            if size_vector_I4FN ~= size_vector_weight
-	                error('The vector I4FN must be equal the vector weight')
-	            end % if
-	            
-	            nColumns = size_vector_I4FN(2);            
-	            
-	            for i=1:4
-	                ifn_result.valuesSet(i) = 0; % prevent garbage                 
-	                for j=1:nColumns
-	                    ifn_result.valuesSet(i) = ifn_result.valuesSet(i) + (vector_I4FN(j).valuesSet(i))*(vector_weight(j)); 
-	                end % for
-	            end % for
-	            
-	            ifn_result.informationConfidence = 1; % prevent garbage 
-	            ifn_result.informationNonConfidence = 1; % prevent garbage 
-	            for j=1:nColumns
-	               ifn_result.informationConfidence = (ifn_result.informationConfidence)*((1-vector_I4FN(j).informationConfidence)^(vector_weight(j)));
-	               ifn_result.informationNonConfidence = (ifn_result.informationNonConfidence)*((vector_I4FN(j).informationNonConfidence)^(vector_weight(j)));
-	            end % for
-	                ifn_result.informationConfidence = 1 - ifn_result.informationConfidence;
-	                
-	        end % TFN_WAA
+% 		% Operator TIFN-WAA for I4FN 
+% 	        function ifn_result = TIFN_WAA (vector_I4FN, vector_weight)
+%                 
+%                 ifn_result = IntuitionistFuzzyNumber;
+% 	            size_vector_I4FN = size(vector_I4FN);
+% 	            size_vector_weight = size(vector_weight);
+% 	            
+% 	            if size_vector_I4FN ~= size_vector_weight
+% 	                error('The vector I4FN must be equal the vector weight')
+% 	            end % if
+% 	            
+% 	            nColumns = size_vector_I4FN(2);            
+% 	            
+% 	            for i=1:4
+% 	                ifn_result.valuesSet(i) = 0; % prevent garbage                 
+% 	                for j=1:nColumns
+% 	                    ifn_result.valuesSet(i) = ifn_result.valuesSet(i) + (vector_I4FN(j).valuesSet(i))*(vector_weight(j)); 
+% 	                end % for
+% 	            end % for
+% 	            
+% 	            ifn_result.informationConfidence = 1; % prevent garbage 
+% 	            ifn_result.informationNonConfidence = 1; % prevent garbage 
+% 	            for j=1:nColumns
+% 	               ifn_result.informationConfidence = (ifn_result.informationConfidence)*((1-vector_I4FN(j).informationConfidence)^(vector_weight(j)));
+% 	               ifn_result.informationNonConfidence = (ifn_result.informationNonConfidence)*((vector_I4FN(j).informationNonConfidence)^(vector_weight(j)));
+% 	            end % for
+% 	                ifn_result.informationConfidence = 1 - ifn_result.informationConfidence;
+% 	                
+% 	        end % TFN_WAA
+%             
+%         % TIFN_WAA2
+%         
+%         function ifn_result = TIFN_WAA2 (vector_I4FN, vector_weight)
+%             % Validation
+%             
+%             % Checks if inputs are arrays
+%             I4FN_size = size(vector_I4FN);
+%             weight_size = size(vector_weight);
+%             if (I4FN_size(1) ~= 1 && I4FN_size(2) ~= 1) || ...
+%                 (weight_size(1) ~=1 && weight_size(2) ~=1) || ...    
+%                 (max(I4FN_size) ~= max(weight_size))
+%                 
+%                 error('Input arguments are inconsistent');
+%             end % if
+%             
+%             % this is done to prevent type problems
+%             % it will get more elegant eventually
+%             %ifn_result = vector_I4FN(1)%% + (-1*vector_I4FN(1))
+%             
+%             for i = 1:max(I4FN_size)
+%                 buffer(i) = vector_I4FN(i)*vector_weight(i);
+%             end % for
+%             
+%             ifn_result = buffer(1);
+%             for i=2:max(I4FN_size)
+%                 ifn_result = ifn_result + buffer(i);
+%             end % for
+%             
+%         end % TIFN_WAA2
+            
 
 		% Fuzzy Distance - As defined in Chen & Li
 
