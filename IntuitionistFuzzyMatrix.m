@@ -39,17 +39,21 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             m = order(1);
             n = order (2);
             sumRjs = IntuitionistFuzzyNumber([0 0 0 0],0,1); %Initialization
-            vectorR = [IntuitionistFuzzyNumber([0 0 0 0],0,1)]; %Initialization
+            %vectorR = IntuitionistFuzzyNumber([0 0 0 0],0,1); %Initialization
             
             for j=1:n
-                for i=1:m
-                    sumRjs = sumRjs + matrixFuzzy.matrixD(i,j);
-                end % for
+                sumRjs = IntuitionistFuzzyNumber([0 0 0 0],0,1);
+                %for i=1:m
+                %    sumRjs = sumRjs + matrixFuzzy.matrixD(i,j)
+                %end % for
+                sumRjs = sum(matrixFuzzy.matrixD(:,j))
                 vectorR(j) = (sumRjs)*(1/m);
             end % for
         end % calculateRj
+        
+        
         function matrixM = calculateMatrixM (matrixFuzzy)
-            vectorR = [IntuitionistFuzzyNumber([0 0 0 0],0,1)]; %Initialization
+            %vectorR = IntuitionistFuzzyNumber([0 0 0 0],0,1); %Initialization
             vectorR = matrixFuzzy.calculateVectorRj;
             order = size(matrixFuzzy.matrixD);
             m = order(1);
@@ -60,9 +64,13 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
                 for i=1:m
                     matrixM(i,j) = I4FN_fuzzyDistance(matrixFuzzy.matrixD(i,j),vectorR(j));
                 end % for
+                
+                
             end % for
             
+            matrixM
         end %calculateVectorMj
+        
         function matrixP = normalizeMatrixM (matrixFuzzy)
             matrixM = matrixFuzzy.calculateMatrixM;
             order = size(matrixFuzzy.matrixD);
@@ -70,18 +78,29 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             n = order (2);
             matrixP = zeros(m,n);
             vAux = zeros(1,n);
-            
-            %find de max of the line
-            for i=1:m
-                for j=1:n
-                    vAux(j)=matrixM(i,j);
-                end %for
-                vAux = sort(vAux);
-                max = vAux(n);
-                for j=1:n
-                    matrixP(i,j) = matrixM(i,j)/max;
-                end %for
+%             
+%             %find de max of the line
+%             for i=1:m
+%                 for j=1:n
+%                     vAux(j)=matrixM(i,j);
+%                 end %for
+%                 vAux = sort(vAux);
+%                 max = vAux(n)
+%                 for j=1:n
+%                     matrixP(i,j) = matrixM(i,j)/max;
+%                 end %for
+%             end % for
+%             matrixP
+%             
+            %max = 0;
+            for j = 1:n
+                max_v = max(matrixM(:,j));
+                for i=1:m
+                    matrixP(i,j) = matrixM(i,j)/max_v;
+                end % for
             end % for
+            
+            matrixP
         end %normalizeVectorMj
         
         % find entropy
@@ -107,6 +126,7 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
                 en(j) = (-1/log(m))*aux2;
                 aux2 = 0;
             end %for
+            en
         end %entropy
         function weights(matrixFuzzy)
             en = matrixFuzzy.entropy;
@@ -257,6 +277,20 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             IFM_result = IntuitionistFuzzyMatrix(buffer_costbenefit,aggregated_D,aggregated_vectorW);
             
         end % Aggregate
+        
+        % Apply Weights
+        function applyWeights(I4FN_Matrix)
+            
+            order = size(I4FN_Matrix.matrixD);
+            
+            for i = 1:order(1)
+                for j = 1:order(2)
+                    I4FN_Matrix.matrixD(i,j) = I4FN_Matrix.matrixD(i,j) * I4FN_Matrix.vectorW(j);
+                end % for j
+            end % for i
+            
+        end % function
+        
         
     end %methods
     
