@@ -115,9 +115,14 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 		        non_pertinence = (x - I4FN.valuesSet(3) + I4FN.informationNonConfidence*(I4FN.valuesSet(4))) / (I4FN.valuesSet(4) - I4FN.valuesSet(3));
 		        else non_pertinence = 1;
 		    end
-		end % Pertinence function
+		end % Non Pertinence function
 
-		
+		% Pi Function
+        function pi = I4FN_pi(I4FN,x)
+            pi = 1 - I4FN.I4FN_pertinence(x) - I4FN.I4FN_non_pertinence(x);
+        end % pi
+        
+        
 		% Plus
 		function ifn_result = plus(ifn_a, ifn_b)
 		  ifn_result = IntuitionistFuzzyNumber;
@@ -236,7 +241,13 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 		% Fuzzy Distance - As defined in Chen & Li
 
 		function distance = I4FN_fuzzyDistance(I4FN_A,I4FN_B)
-			distance = sqrt(0.5 * ((I4FN_A.informationConfidence - I4FN_B.informationConfidence)^2 + (I4FN_A.informationNonConfidence - I4FN_B.informationNonConfidence)^2 + (I4FN_A.informationConfidence + I4FN_A.informationNonConfidence - I4FN_B.informationConfidence - I4FN_B.informationNonConfidence)^2	)) + sqrt(I4FN_auxIntegral(I4FN_A,I4FN_B));
+			distance = sqrt(0.5 * ( ...
+                                    (I4FN_A.informationConfidence - I4FN_B.informationConfidence)^2 + ...
+                                    (I4FN_A.informationNonConfidence - I4FN_B.informationNonConfidence)^2 +...
+                                    (I4FN_A.informationConfidence + I4FN_A.informationNonConfidence - I4FN_B.informationConfidence - I4FN_B.informationNonConfidence)^2 ...
+                                    ))...
+                                    + sqrt(I4FN_auxIntegral(I4FN_A,I4FN_B));
+                                %distance = distance*3;
 		end % distance
 		
 			% Auxiliary functions to fuzzy distance
@@ -285,6 +296,23 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
                 (I4FN.valuesSet(4)*I4FN.informationConfidence + I4FN.valuesSet(3) - I4FN.valuesSet(4)*I4FN.informationNonConfidence) ...
             );
         end % function
+        
+        % Discrete Fuzzy Distance
+  		function distance = I4FN_discreteFuzzyDistance(I4FN_A,I4FN_B)
+            sum = 0;
+            da = (I4FN_A.valuesSet(4)-I4FN_A.valuesSet(1))/1000;
+            db = (I4FN_B.valuesSet(4)-I4FN_B.valuesSet(1))/1000;
+            for i=1:1001
+                xa = (i-1)*da + I4FN_A.valuesSet(1);
+                xb = (i-1)*db + I4FN_B.valuesSet(1);
+                sum = sum + (abs(I4FN_A.I4FN_pertinence(xa) - I4FN_B.I4FN_pertinence(xb)) + ...
+                      abs(I4FN_A.I4FN_non_pertinence(xa) - I4FN_B.I4FN_non_pertinence(xb)) + ...
+                      abs(I4FN_A.I4FN_pi(xa) - I4FN_B.I4FN_pi(xb)));
+            end %for
+            distance = 0.5*sum/1000;
+            
+        end % function
+
         
 	end % methods			
 end % classdef

@@ -1,0 +1,48 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	Intuitionist Fuzzy Number Class
+%	
+%	Authors: Andre Pacheco and Andre Siviero
+%	Orienters: Renato Krohling and Rodolfo Lourenzutti
+%
+%	This file is used mostly as a draft space, for testing purposes on how to structure snippets of code. Most users
+%	don't need to refer to this file
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Load the ratings on Ratings.m
+Ratings
+
+D = [ IntuitionistFuzzyNumber([0.65 0.8 0.95],0.8183,0.126) IntuitionistFuzzyNumber([0.7 0.8667 0.9667],0.6266,0.2884) IntuitionistFuzzyNumber([0.3077 0.4 0.5714],0.7711,0.1587);
+	IntuitionistFuzzyNumber([0.8 1 1],0.8416,0.126) IntuitionistFuzzyNumber([0.55 0.7 0.85],0.6443,0.252) IntuitionistFuzzyNumber([0.3333 0.4444 0.6667],0.6893,0.2);
+	IntuitionistFuzzyNumber([0.7 0.8667 0.9667],0.7116,0.2) IntuitionistFuzzyNumber([0.8 1 1],0.8413,0.252) IntuitionistFuzzyNumber([0.3333 0.4444 0.6667],0.6893,0.2);
+	IntuitionistFuzzyNumber(Very_High) IntuitionistFuzzyNumber(Medium);
+    IntuitionistFuzzyNumber(Extremely_High) IntuitionistFuzzyNumber(Medium);
+    IntuitionistFuzzyNumber(Extremely_Low) IntuitionistFuzzyNumber(Medium);
+    IntuitionistFuzzyNumber(Medium) IntuitionistFuzzyNumber(Medium);
+    IntuitionistFuzzyNumber(Low) IntuitionistFuzzyNumber(Medium) ];
+	
+CBVector = [1 1];
+
+IFM = IntuitionistFuzzyMatrix(CBVector,D,[1 0]);
+%IFM.matrixD
+%IFM.normalizeDecisionMatrix;
+%IFM.matrixD
+
+IFM.vectorW
+IFM.weights;
+IFM.vectorW
+
+%v = TOPSIS (IFM);
+
+IFM.matrixD
+
+IFM.applyWeights
+
+IFM.matrixD
+
+
+
+
+
+	

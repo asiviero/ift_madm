@@ -46,7 +46,7 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
                 %for i=1:m
                 %    sumRjs = sumRjs + matrixFuzzy.matrixD(i,j)
                 %end % for
-                sumRjs = sum(matrixFuzzy.matrixD(:,j))
+                sumRjs = sum(matrixFuzzy.matrixD(:,j));
                 vectorR(j) = (sumRjs)*(1/m);
             end % for
         end % calculateRj
