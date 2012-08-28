@@ -24,14 +24,14 @@ D = [ IntuitionistFuzzyNumber(Very_Low) IntuitionistFuzzyNumber(Medium);
 	
 CBVector = [1 1];
 
-IFM = IntuitionistFuzzyMatrix(CBVector,D,[1 0]);
+IFM = IntuitionistFuzzyMatrix(CBVector,D,[0.9 0.1]);
 IFM.matrixD
 IFM.normalizeDecisionMatrix;
 IFM.matrixD
 
 IFM.vectorW
-IFM.weights;
-IFM.vectorW
+%IFM.weights;
+%IFM.vectorW
 
 %v = TOPSIS (IFM);
 
@@ -41,7 +41,7 @@ IFM.applyWeights
 
 IFM.matrixD
 
-
+v = TOPSIS (IFM);
 
 
 
