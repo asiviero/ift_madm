@@ -2,7 +2,7 @@
 %
 %	Intuitionist Fuzzy Number Class
 %	
-%	Authors: André Pacheco and André Siviero
+%	Authors: Andre Pacheco and Andre Siviero
 %	Orienters: Renato Krohling and Rodolfo Lourenzutti
 %
 %	This file contains the Intuitionist Fuzzy Number class definition. Most of the definitions
