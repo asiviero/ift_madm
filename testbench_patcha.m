@@ -30,10 +30,10 @@ IFM.normalizeDecisionMatrix;
 IFM.matrixD
 
 IFM.vectorW
-%IFM.weights;
-%IFM.vectorW
+IFM.weights;
+IFM.vectorW
 
-%v = TOPSIS (IFM);
+v = TOPSIS (IFM);
 
 IFM.matrixD
 
@@ -42,6 +42,9 @@ IFM.applyWeights
 IFM.matrixD
 
 v = TOPSIS (IFM);
+
+
+
 
 
 

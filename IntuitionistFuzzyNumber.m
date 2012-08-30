@@ -2,7 +2,7 @@
 %
 %	Intuitionist Fuzzy Number Class
 %	
-%	Authors: Andre Pacheco and Andre Siviero mmmlll
+%	Authors: Andre Pacheco and Andre Siviero
 %	Orienters: Renato Krohling and Rodolfo Lourenzutti
 %
 %	This file contains the Intuitionist Fuzzy Number class definition. Most of the definitions
@@ -176,6 +176,30 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
                 ifn_result = ifn_result + I4FN_vector(i);
             end %for
         end % sum
+        
+        %This function return 1 if ifn_1 is bigger than ifn2, -1 if ifn_1
+        %is smaller than inf_2 and 0 if both are equal
+        function result = bigger_than (ifn_1,ifn_2)
+            s1 = ifn_1.informationConfidence - ifn_1.informationNonConfidence; %score 1
+            s2 = ifn_2.informationConfidence - ifn_2.informationNonConfidence; %score 2
+            h1 = ifn_1.informationConfidence + ifn_1.informationNonConfidence; %accuracy 1
+            h2 = ifn_2.informationConfidence + ifn_2.informationNonConfidence; %accuracy 2
+            
+            if s1 > s2
+                result = 1;
+            elseif s1 < s2
+                result = -1;
+            elseif s1 == s2
+                if h1 > h2
+                    result = 1;
+                elseif h1 < h2
+                    result = -1;
+                elseif h1 == h2
+                    result = 0;
+                end %if
+            end %if           
+        end %smaller_than
+        
         
 % 		% Operator TIFN-WAA for I4FN 
 % 	        function ifn_result = TIFN_WAA (vector_I4FN, vector_weight)
