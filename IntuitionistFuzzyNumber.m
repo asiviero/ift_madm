@@ -179,7 +179,7 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
         
         %This function return 1 if ifn_1 is bigger than ifn2, -1 if ifn_1
         %is smaller than inf_2 and 0 if both are equal
-        function result = bigger_than (ifn_1,ifn_2)
+        function result = cmp (ifn_1,ifn_2)
             s1 = ifn_1.informationConfidence - ifn_1.informationNonConfidence; %score 1
             s2 = ifn_2.informationConfidence - ifn_2.informationNonConfidence; %score 2
             h1 = ifn_1.informationConfidence + ifn_1.informationNonConfidence; %accuracy 1
