@@ -25,25 +25,32 @@ D = [ IntuitionistFuzzyNumber(Very_Low) IntuitionistFuzzyNumber(Medium);
 CBVector = [1 1];
 
 IFM = IntuitionistFuzzyMatrix(CBVector,D,[0.9 0.1]);
-IFM.matrixD
-IFM.normalizeDecisionMatrix;
-IFM.matrixD
+%IFM.matrixD
+%IFM.normalizeDecisionMatrix;
+%IFM.matrixD
 
-IFM.vectorW
-IFM.weights;
-IFM.vectorW
+%IFM.vectorW
+%IFM.weights;
+%IFM.vectorW
 
-v = TOPSIS (IFM);
+%v = TOPSIS (IFM);
 
-IFM.matrixD
+%IFM.matrixD
 
-IFM.applyWeights
+%IFM.applyWeights
 
-IFM.matrixD
+%IFM.matrixD
 
-v = TOPSIS (IFM);
+%v = TOPSIS (IFM);
 
 
+F1 = IntuitionistFuzzyNumber(Very_High,0.9,0.1);
+F2 = IntuitionistFuzzyNumber(Extremely_High,0.8,0.1);
+
+F1.I4FN_discreteEuclideanDistance(F2)
+F1.I4FN_discreteHammingDistance(F2)
+F1.I4FN_discreteFuzzyDistance(F2)
+F1.I4FN_discreteFuzzyDistance2(F2)
 
 
 

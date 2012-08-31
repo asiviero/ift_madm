@@ -179,7 +179,7 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
         
         %This function return 1 if ifn_1 is bigger than ifn2, -1 if ifn_1
         %is smaller than inf_2 and 0 if both are equal
-        function result = bigger_than (ifn_1,ifn_2)
+        function result = cmp (ifn_1,ifn_2)
             s1 = ifn_1.informationConfidence - ifn_1.informationNonConfidence; %score 1
             s2 = ifn_2.informationConfidence - ifn_2.informationNonConfidence; %score 2
             h1 = ifn_1.informationConfidence + ifn_1.informationNonConfidence; %accuracy 1
@@ -262,6 +262,8 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 %         end % TIFN_WAA2
             
 
+
+
 		% Fuzzy Distance - As defined in Chen & Li
 
 		function distance = I4FN_fuzzyDistance(I4FN_A,I4FN_B)
@@ -336,8 +338,66 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
             distance = 0.5*sum/1000;
             
         end % function
+        
+
+        % Euclidean Distace - As defined in Guha & Chakraborty
+        function distance = I4FN_discreteEuclideanDistance(ifn_a,ifn_b)
+            n = 100; % interval size
+            interval_a = (ifn_a.valuesSet(4)-ifn_a.valuesSet(1))/n;
+            interval_b = (ifn_b.valuesSet(4)-ifn_b.valuesSet(1))/n;            
+            sum_d = 0;
+            
+            for i=1:n
+                xi_a = (i-1)*interval_a + ifn_a.valuesSet(1);
+                xi_b = (i-1)*interval_b + ifn_b.valuesSet(1);
+                sum_d = sum_d + ((ifn_a.I4FN_pertinence(xi_a) - ifn_b.I4FN_pertinence(xi_b))^2) + ((ifn_a.I4FN_non_pertinence(xi_a) - ifn_b.I4FN_non_pertinence(xi_b))^2);
+            end %for
+            distance = sqrt(sum_d/(2*n));
+            
+        end %I4FN_euclideanDistace
+        
+        % Hamming Distace - As defined in Guha & Chakraborty
+        function distance = I4FN_discreteHammingDistance(ifn_a,ifn_b)
+            n = 100; % interval size
+            interval_a = (ifn_a.valuesSet(4)-ifn_a.valuesSet(1))/n;
+            interval_b = (ifn_b.valuesSet(4)-ifn_b.valuesSet(1))/n;            
+            sum_d = 0;
+            
+            for i=1:n
+                xi_a = (i-1)*interval_a + ifn_a.valuesSet(1);
+                xi_b = (i-1)*interval_b + ifn_b.valuesSet(1);
+                sum_d = sum_d + (abs(ifn_a.I4FN_pertinence(xi_a) - ifn_b.I4FN_pertinence(xi_b))) + (abs(ifn_a.I4FN_non_pertinence(xi_a) - ifn_b.I4FN_non_pertinence(xi_b)));
+            end %for
+            distance =(sum_d/(2*n));
+            
+        end %I4FN_hammingDistace  
+        
+        % Hamming Distace - As defined in Fei Ye in Definition 2.3
+        function distance = I4FN_discreteFuzzyDistance2(ifn_a,ifn_b)
+            n = 100; % interval size
+            interval_a = (ifn_a.valuesSet(4)-ifn_a.valuesSet(1))/n;
+            interval_b = (ifn_b.valuesSet(4)-ifn_b.valuesSet(1))/n;            
+            sum_d = 0;
+            
+            for i=1:n
+                xi_a = (i-1)*interval_a + ifn_a.valuesSet(1);
+                xi_b = (i-1)*interval_b + ifn_b.valuesSet(1);
+                sum_d = sum_d + ((ifn_a.I4FN_pertinence(xi_a) - ifn_b.I4FN_pertinence(xi_b))^2) + ((ifn_a.I4FN_non_pertinence(xi_a) - ifn_b.I4FN_non_pertinence(xi_b))^2) + ((ifn_a.I4FN_pi(xi_a) - ifn_b.I4FN_pi(xi_b))^2);
+            end %for
+            distance =(sum_d/2);
+            
+        end %I4FN_discreteFuzzyDistance2          
 
         
 	end % methods			
 end % classdef
+
+
+
+
+
+
+
+
+
 
