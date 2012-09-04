@@ -410,7 +410,7 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
                 xi_b = (i-1)*interval_b + ifn_b.valuesSet(1);
                 sum_d = sum_d + ((ifn_a.I4FN_pertinence(xi_a) - ifn_b.I4FN_pertinence(xi_b))^2) + ((ifn_a.I4FN_non_pertinence(xi_a) - ifn_b.I4FN_non_pertinence(xi_b))^2) + ((ifn_a.I4FN_pi(xi_a) - ifn_b.I4FN_pi(xi_b))^2);
             end %for
-            distance =(sum_d/2);
+            distance =sqrt(sum_d/2);
             
         end %I4FN_discreteFuzzyDistance2          
 
