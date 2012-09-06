@@ -45,8 +45,8 @@ IFM.matrixD
 
 v = TOPSIS (IFM);
 
-%}
 
+%}
 F1 = IntuitionistFuzzyNumber(Extremely_Low);
 F2 = IntuitionistFuzzyNumber(Extremely_High,0.8,0.1);
 
@@ -63,6 +63,7 @@ fprintf ('Distancia Fuzzy Discreta 1');
 F1.I4FN_discreteFuzzyDistance(F2)
 fprintf ('Distancia Fuzzy Discreta 2');
 F1.I4FN_discreteFuzzyDistance2(F2)
+
 
 
 

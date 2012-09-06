@@ -133,11 +133,15 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 		  ifn_result.informationNonConfidence = ifn_a.informationNonConfidence*ifn_b.informationNonConfidence;
 		end % sum
 		
-		% Product By Scalar
+		% Product By Scalar or by fuzzy number
 		function ifn_result = mtimes(param_1, param_2)
             ifn_result = IntuitionistFuzzyNumber;
-            
-            if isa(param_1,'IntuitionistFuzzyNumber')
+            flag = 0;
+            if isa(param_1,'IntuitionistFuzzyNumber') && isa(param_2,'IntuitionistFuzzyNumber')
+                I4FN = param_1;
+                I4FN_2 = param_2;
+                flag = 1;
+            elseif isa(param_1,'IntuitionistFuzzyNumber')
                 I4FN = param_1;
                 lambda = param_2;              
             elseif isa(param_2,'IntuitionistFuzzyNumber')
@@ -145,19 +149,41 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
                 lambda = param_1;                          
             end
             
-            
-			if lambda >= 0
-				for j=1:4
-				    ifn_result.valuesSet(j) = I4FN.valuesSet(j) * lambda;
-				end
-			else
-				for j=1:4
-				    ifn_result.valuesSet(5-j) = I4FN.valuesSet(j) * lambda;
-				end
-			end
-			ifn_result.informationConfidence = 1 - (1-I4FN.informationConfidence)^lambda;
-			ifn_result.informationNonConfidence = (I4FN.informationNonConfidence)^lambda;
-		end % product by scalar
+            if flag == 0
+                if lambda >= 0
+                    for j=1:4
+                        ifn_result.valuesSet(j) = I4FN.valuesSet(j) * lambda;
+                    end
+                else
+                    for j=1:4
+                        ifn_result.valuesSet(5-j) = I4FN.valuesSet(j) * lambda;
+                    end
+                end
+                ifn_result.informationConfidence = 1 - (1-I4FN.informationConfidence)^lambda;
+                ifn_result.informationNonConfidence = (I4FN.informationNonConfidence)^lambda;
+            else
+                for j=1:4
+                    ifn_result.valuesSet(j) = I4FN.valuesSet(j) * I4FN_2.valuesSet(j);
+                    ifn_result.informationConfidence = I4FN.informationConfidence * I4FN_2.informationConfidence;
+                    ifn_result.informationNonConfidence = I4FN.informationNonConfidence + I4FN_2.informationNonConfidence - I4FN.informationNonConfidence * I4FN_2.informationNonConfidence;
+                end %for
+            end % if
+		end % product by scalar or fuzzy number
+        
+        % power fuzzy number by scalar
+        function ifn_result = mpower (ifn,a)
+            ifn_result = IntuitionistFuzzyNumber;
+
+            for j=1:4
+                ifn_result.valuesSet(j) = (ifn.valuesSet(j))^a;
+            end  
+            ifn_result.informationConfidence = ifn.informationConfidence^a;
+            ifn_result.informationNonConfidence = 1 - ((1-ifn.informationNonConfidence)^a);            
+        end %mpower
+        
+        
+        
+        
 		
         function ifn_result = sum(I4FN_vector)
             % Validation
@@ -182,22 +208,21 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
         %Defined in Wang and Liu
         function result = cmp (ifn_1,ifn_2)            
             n = 100; %points number
-            interval_1 = (ifn_1.valuesSet(4)-ifn_1.valuesSet(1))/n;
-            interval_2 = (ifn_2.valuesSet(4)-ifn_2.valuesSet(1))/n;            
-            
+            min_a = min(ifn_1.valuesSet(1),ifn_2.valuesSet(1));
+            max_d = max(ifn_1.valuesSet(4),ifn_2.valuesSet(4));
+            interval = (max_d - min_a)/n;
+           
             sum_pertinence_1 = 0;
             sum_pertinence_2 = 0;
             sum_non_pertinence_1 = 0;
             sum_non_pertinence_2 = 0;
             
             for i=1:n
-                xi_1 = (i-1)*interval_1 + ifn_1.valuesSet(1);
-                xi_2 = (i-1)*interval_2 + ifn_2.valuesSet(1); 
-
-                sum_pertinence_1 = sum_pertinence_1 + ifn_1.I4FN_pertinence(xi_1);
-                sum_pertinence_2 = sum_pertinence_2 + ifn_2.I4FN_pertinence(xi_2);
-                sum_non_pertinence_1 = sum_non_pertinence_1 + ifn_1.I4FN_non_pertinence(xi_1);
-                sum_non_pertinence_2 = sum_non_pertinence_2 + ifn_2.I4FN_non_pertinence(xi_2);
+                xi = (i-1)*interval + min_a;
+                sum_pertinence_1 = sum_pertinence_1 + ifn_1.I4FN_pertinence(xi);
+                sum_pertinence_2 = sum_pertinence_2 + ifn_2.I4FN_pertinence(xi);
+                sum_non_pertinence_1 = sum_non_pertinence_1 + ifn_1.I4FN_non_pertinence(xi);
+                sum_non_pertinence_2 = sum_non_pertinence_2 + ifn_2.I4FN_non_pertinence(xi);
             end %for
             
             pertinence_1 = sum_pertinence_1/n; %average pertinence 1
@@ -287,18 +312,20 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
         end % function
         
         % Discrete Fuzzy Distance
-  		function distance = I4FN_discreteFuzzyDistance(I4FN_A,I4FN_B)
-            sum = 0;
-            da = (I4FN_A.valuesSet(4)-I4FN_A.valuesSet(1))/1000;
-            db = (I4FN_B.valuesSet(4)-I4FN_B.valuesSet(1))/1000;
+  		function distance = I4FN_discreteFuzzyDistance(ifn_a,ifn_b)
+            sum_d = 0;
+            n = 100; %interval size
+            min_a = min(ifn_a.valuesSet(1),ifn_b.valuesSet(1));
+            max_d = max(ifn_a.valuesSet(4),ifn_b.valuesSet(4));
+            interval = (max_d - min_a)/n;            
+
             for i=1:1001
-                xa = (i-1)*da + I4FN_A.valuesSet(1);
-                xb = (i-1)*db + I4FN_B.valuesSet(1);
-                sum = sum + (abs(I4FN_A.I4FN_pertinence(xa) - I4FN_B.I4FN_pertinence(xb)) + ...
-                      abs(I4FN_A.I4FN_non_pertinence(xa) - I4FN_B.I4FN_non_pertinence(xb)) + ...
-                      abs(I4FN_A.I4FN_pi(xa) - I4FN_B.I4FN_pi(xb)));
+                xi = (i-1)*interval + min_a;
+                sum_d = sum_d + (abs(ifn_a.I4FN_pertinence(xi) - ifn_b.I4FN_pertinence(xi)) + ...
+                      abs(ifn_a.I4FN_non_pertinence(xi) - ifn_b.I4FN_non_pertinence(xi)) + ...
+                      abs(ifn_a.I4FN_pi(xi) - ifn_b.I4FN_pi(xi)));
             end %for
-            distance = 0.5*sum/1000;
+            distance = 0.5*sum_d/1000;
             
         end % function
         
@@ -308,11 +335,13 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
             n = 1000; % interval size
             %interval_a = (ifn_a.valuesSet(4)-ifn_a.valuesSet(1))/n;
             %interval_b = (ifn_b.valuesSet(4)-ifn_b.valuesSet(1))/n;            
-            interval = (max(ifn_a.valuesSet(4),ifn_b.valuesSet(4)) - min(ifn_a.valuesSet(1),ifn_b.valuesSet(1)))/n
+            min_a = min(ifn_a.valuesSet(1),ifn_b.valuesSet(1));
+            max_d = max(ifn_a.valuesSet(4),ifn_b.valuesSet(4));
+            interval = (max_d - min_a)/n;
             sum_d = 0;
             
             for i=1:n+1
-                xi = (i-1)*interval + ifn_a.valuesSet(1);
+                xi = (i-1)*interval + min_a;
                 sum_d = sum_d + ((ifn_a.I4FN_pertinence(xi) - ifn_b.I4FN_pertinence(xi))^2) + ((ifn_a.I4FN_non_pertinence(xi) - ifn_b.I4FN_non_pertinence(xi))^2);
             end %for
             distance = sqrt(sum_d/(2*n));
@@ -322,14 +351,14 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
         % Hamming Distace - As defined in Guha & Chakraborty
         function distance = I4FN_discreteHammingDistance(ifn_a,ifn_b)
             n = 100; % interval size
-            interval_a = (ifn_a.valuesSet(4)-ifn_a.valuesSet(1))/n;
-            interval_b = (ifn_b.valuesSet(4)-ifn_b.valuesSet(1))/n;            
+            min_a = min(ifn_a.valuesSet(1),ifn_b.valuesSet(1));
+            max_d = max(ifn_a.valuesSet(4),ifn_b.valuesSet(4));
+            interval = (max_d - min_a)/n;            
             sum_d = 0;
             
             for i=1:n+1
-                xi_a = (i-1)*interval_a + ifn_a.valuesSet(1);
-                xi_b = (i-1)*interval_b + ifn_b.valuesSet(1);
-                sum_d = sum_d + (abs(ifn_a.I4FN_pertinence(xi_a) - ifn_b.I4FN_pertinence(xi_b))) + (abs(ifn_a.I4FN_non_pertinence(xi_a) - ifn_b.I4FN_non_pertinence(xi_b)));
+                xi = (i-1)*interval + min_a;
+                sum_d = sum_d + (abs(ifn_a.I4FN_pertinence(xi) - ifn_b.I4FN_pertinence(xi))) + (abs(ifn_a.I4FN_non_pertinence(xi) - ifn_b.I4FN_non_pertinence(xi)));
             end %for
             distance =(sum_d/(2*n));
             
@@ -338,14 +367,14 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
         % Discrete Fuzzy Distance 2 - As defined in Fei Ye in Definition 2.3
         function distance = I4FN_discreteFuzzyDistance2(ifn_a,ifn_b)
             n = 100; % interval size
-            interval_a = (ifn_a.valuesSet(4)-ifn_a.valuesSet(1))/n;
-            interval_b = (ifn_b.valuesSet(4)-ifn_b.valuesSet(1))/n;            
+            min_a = min(ifn_a.valuesSet(1),ifn_b.valuesSet(1));
+            max_d = max(ifn_a.valuesSet(4),ifn_b.valuesSet(4));
+            interval = (max_d - min_a)/n;           
             sum_d = 0;
             
             for i=1:n+1
-                xi_a = (i-1)*interval_a + ifn_a.valuesSet(1);
-                xi_b = (i-1)*interval_b + ifn_b.valuesSet(1);
-                sum_d = sum_d + ((ifn_a.I4FN_pertinence(xi_a) - ifn_b.I4FN_pertinence(xi_b))^2) + ((ifn_a.I4FN_non_pertinence(xi_a) - ifn_b.I4FN_non_pertinence(xi_b))^2) + ((ifn_a.I4FN_pi(xi_a) - ifn_b.I4FN_pi(xi_b))^2);
+                xi = (i-1)*interval + min_a;               
+                sum_d = sum_d + ((ifn_a.I4FN_pertinence(xi) - ifn_b.I4FN_pertinence(xi))^2) + ((ifn_a.I4FN_non_pertinence(xi) - ifn_b.I4FN_non_pertinence(xi))^2) + ((ifn_a.I4FN_pi(xi) - ifn_b.I4FN_pi(xi))^2);
             end %for
             distance =sqrt(sum_d/2);
             
@@ -355,17 +384,43 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
         function distance = I4FN_discreteEuclideanDistance2(ifn_a,ifn_b)
             n = 1000; % interval size
             %interval_a = (ifn_a.valuesSet(4)-ifn_a.valuesSet(1))/n;
-            %interval_b = (ifn_b.valuesSet(4)-ifn_b.valuesSet(1))/n;            
-            interval = (max(ifn_a.valuesSet(4),ifn_b.valuesSet(4)) - min(ifn_a.valuesSet(1),ifn_b.valuesSet(1)))/n
+            %interval_b = (ifn_b.valuesSet(4)-ifn_b.valuesSet(1))/n;   
+            min_a = min(ifn_a.valuesSet(1),ifn_b.valuesSet(1));
+            max_d = max(ifn_a.valuesSet(4),ifn_b.valuesSet(4));
+            interval = (max_d - min_a)/n;
             sum_d = 0;
             
             for i=1:n+1
-                xi = (i-1)*interval + ifn_a.valuesSet(1);
+                xi = (i-1)*interval + min_a;
                 sum_d = sum_d + ((ifn_a.I4FN_pertinence(xi) - ifn_b.I4FN_pertinence(xi))^2) + ((ifn_a.I4FN_non_pertinence(xi) - ifn_b.I4FN_non_pertinence(xi))^2);
             end %for
             distance = sqrt(sum_d/(2*n));
             
         end %I4FN_euclideanDistace
+      
+       % defined in Guiwu Wei, definition 3
+       function distance = I4FN_discreteHammingDistace2 (ifn_1,ifn_2)
+        % number fuzzy 1
+        a1 = ifn_1.valuesSet(1);
+        b1 = ifn_1.valuesSet(2);
+        c1 = ifn_1.valuesSet(3);
+        d1 = ifn_1.valuesSet(4);
+        u1 = ifn_1.informationConfidence;
+        v1 = ifn_1.informationNonConfidence;
+       
+       % number fuzzy 2
+        a2 = ifn_2.valuesSet(1);
+        b2 = ifn_2.valuesSet(2);
+        c2 = ifn_2.valuesSet(3);
+        d2 = ifn_2.valuesSet(4);                        
+        u2 = ifn_2.informationConfidence;        
+        v2 = ifn_2.informationNonConfidence;
+
+        alpha = (1+u1-v1); % auxiliary vars
+        beta = (1+u2-v2);% auxiliary vars
+        
+        distance = 0.125 * (abs(alpha*a1 - beta*a2) + abs(alpha*b1 - beta*b2) + abs(alpha*c1 - beta*c2) + abs(alpha*d1 - beta*d2));        
+       end %I4FN_discreteHammingDistace2
         
         
 	end % methods			
