@@ -1,0 +1,296 @@
+PRIMEIRA PARTE: Intuito de verificar a sensiblidade em relação a variação de mi e v
+
+********************************** Distância entre: Very_Low e Extremely_High *************************************************
+
+f1 = < ( 1.4 , 2.2 , 2.8 , 3.6 ) , 1 , 0 > 
+f2 = < ( 8.8 , 9.2 , 9.6 , 10 ) , 1 , 0 > 
+
+Integral Fuzzy Distance = 9.7687
+Discrete Fuzzy Distance = 0.0255
+Discrete Euclidean Distance = 0.4575
+Discrete Hamming Distance = 0.2553
+Discrete Fuzzy Distance 2 = 4.5717
+Discrete Euclidean Distance 2 = 0.4575
+Discrete Hamming Distance 2 = 6.9000
+
+################################################################################################################################
+
+f1 =< ( 1.4 , 2.2 , 2.8 , 3.6 ) , 0.8 , 0.1 >  
+f2 =< ( 8.8 , 9.2 , 9.6 , 10 ) , 1 , 0 > 
+ 
+Integral Fuzzy Distance = 9.9419
+Discrete Fuzzy Distance = 0.0244
+Discrete Euclidean Distance = 0.4055
+Discrete Hamming Distance = 0.2219
+Discrete Fuzzy Distance 2 = 4.1340
+Discrete Euclidean Distance 2 = 0.4055
+Discrete Hamming Distance 2 = 7.2750
+
+################################################################################################################################
+
+f1 = < ( 1.4 , 2.2 , 2.8 , 3.6 ) , 0.8 , 0.1 >  
+f2 = < ( 8.8 , 9.2 , 9.6 , 10 ) , 0.7 , 0.2 > 
+ 
+Integral Fuzzy Distance = 9.8687
+Discrete Fuzzy Distance = 0.0401
+Discrete Euclidean Distance = 0.7696
+Discrete Hamming Distance = 0.2794
+Discrete Fuzzy Distance 2 = 10.0048
+Discrete Euclidean Distance 2 = 0.7696
+Discrete Hamming Distance 2 =  4.9250
+
+################################################################################################################################
+
+
+********************************** Distância entre: Very_Low e Extremely_High *************************************************
+f1 =< ( 3 , 3.8 , 4.6 , 5.4 ) , 1 , 0 >  
+f2 = < ( 8.8 , 9.2 , 9.6 , 10 ) , 1 , 0 > 
+ 
+Integral Fuzzy Distance = 7.3774
+Discrete Fuzzy Distance = 0.0342
+Discrete Euclidean Distance = 0.5345
+Discrete Hamming Distance = 0.3425
+Discrete Fuzzy Distance 2 = 5.3430
+Discrete Euclidean Distance 2 = 0.5345
+Discrete Hamming Distance 2 = 5.2000
+
+################################################################################################################################
+f1 =< ( 3 , 3.8 , 4.6 , 5.4 ) , 1 , 0 >  
+f2 =< ( 8.8 , 9.2 , 9.6 , 10 ) , 0.8 , 0.1 > 
+ 
+Integral Fuzzy Distance = 7.5506
+Discrete Fuzzy Distance = 0.0427
+Discrete Euclidean Distance = 0.6059
+Discrete Hamming Distance = 0.3630
+Discrete Fuzzy Distance 2 = 7.0386
+Discrete Euclidean Distance 2 = 0.6059
+Discrete Hamming Distance 2 = 3.7900
+
+################################################################################################################################
+f1 =< ( 3 , 3.8 , 4.6 , 5.4 ) , 0.5 , 0.4 >  
+f2 =< ( 8.8 , 9.2 , 9.6 , 10 ) , 0.8 , 0.1 > 
+ 
+Integral Fuzzy Distance = 7.6774
+Discrete Fuzzy Distance = 0.0593
+Discrete Euclidean Distance = 0.7128
+Discrete Hamming Distance = 0.3735
+Discrete Fuzzy Distance 2 = 10.0555
+Discrete Euclidean Distance 2 = 0.7128
+Discrete Hamming Distance 2 = 5.6800
+
+################################################################################################################################
+
+
+********************************** Distância entre: Medium e Extremely_High *************************************************
+f1 =< ( 4 , 4.6 , 5.4 , 6 ) , 1 , 0 >  
+f2 =< ( 8.8 , 9.2 , 9.6 , 10 ) , 1 , 0 > 
+ 
+Integral Fuzzy Distance = 6.2375
+Discrete Fuzzy Distance = 0.0366
+Discrete Euclidean Distance = 0.5578
+Discrete Hamming Distance = 0.3663
+Discrete Fuzzy Distance 2 = 5.5773
+Discrete Euclidean Distance 2 = 0.5578
+Discrete Hamming Distance 2 = 4.4000
+
+################################################################################################################################
+f1 =< ( 4 , 4.6 , 5.4 , 6 ) , 0.9 , 0.1 > 
+f2 =< ( 8.8 , 9.2 , 9.6 , 10 ) , 1 , 0 > 
+ 
+Integral Fuzzy Distance =  6.3375
+Discrete Fuzzy Distance = 0.0395
+Discrete Euclidean Distance = 0.5258
+Discrete Hamming Distance = 0.3471
+Discrete Fuzzy Distance 2 = 5.6836
+Discrete Euclidean Distance 2 = 0.5258
+Discrete Hamming Distance 2 = 4.9000
+
+********************************** Distância entre: High e Extremely_High *************************************************
+f1 =< ( 5.5 , 6.3 , 7.1 , 7.8 ) , 1 , 0 >  
+f2 =< ( 8.8 , 9.2 , 9.6 , 10 ) , 1 , 0 > 
+ 
+Integral Fuzzy Distance = 3.8927
+Discrete Fuzzy Distance = 0.0522
+Discrete Euclidean Distance = 0.6611
+Discrete Hamming Distance = 0.5221
+Discrete Fuzzy Distance 2 = 6.6110
+Discrete Euclidean Distance 2 = 0.6611
+Discrete Hamming Distance 2 = 2.7250
+
+################################################################################################################################
+
+f1 =< ( 5.5 , 6.3 , 7.1 , 7.8 ) , 1 , 0 >  
+f2 =< ( 8.8 , 9.2 , 9.6 , 10 ) , 0.9 , 0.1 > 
+ 
+Integral Fuzzy Distance = 3.9927
+Discrete Fuzzy Distance = 0.0664
+Discrete Euclidean Distance = 0.7593
+Discrete Hamming Distance = 0.5658
+Discrete Fuzzy Distance 2 = 8.9448
+Discrete Euclidean Distance 2 = 0.7593
+Discrete Hamming Distance 2 = 1.7850
+
+
+********************************** Distância entre: Very_High e Extremely_High *************************************************
+f1 =< ( 7 , 7.4 , 7.8 , 8.2 ) , 1 , 0 >  
+f2 =< ( 8.8 , 9.2 , 9.6 , 10 ) , 1 , 0 > 
+ 
+Integral Fuzzy Distance = 2.5456
+Discrete Fuzzy Distance = 0.0533
+Discrete Euclidean Distance = 0.6667
+Discrete Hamming Distance = 0.5330
+Discrete Fuzzy Distance 2 = 6.6654
+Discrete Euclidean Distance 2 = 0.6667
+Discrete Hamming Distance 2 = 1.8000
+
+################################################################################################################################
+f1 =< ( 7 , 7.4 , 7.8 , 8.2 ) , 1 , 0 >  
+f2 =< ( 8.8 , 9.2 , 9.6 , 10 ) , 0.8 , 0.1 > 
+ 
+Integral Fuzzy Distance = 2.7188
+Discrete Fuzzy Distance = 0.0756
+Discrete Euclidean Distance = 0.7976
+Discrete Hamming Distance = 0.5907
+Discrete Fuzzy Distance 2 = 9.9856
+Discrete Euclidean Distance 2 = 0.7976
+Discrete Hamming Distance 2 = 0.3900
+
+
+********************************** Distância entre: Extremely_High e Extremely_High *************************************************
+f1 =< ( 8.8 , 9.2 , 9.6 , 10 ) , 1 , 0 >  
+f2 =< ( 8.8 , 9.2 , 9.6 , 10 ) , 1 , 0 > 
+ 
+Integral Fuzzy Distance = 0
+Discrete Fuzzy Distance = 0
+Discrete Euclidean Distance = 0
+Discrete Hamming Distance = 0
+Discrete Fuzzy Distance 2 = 0
+Discrete Euclidean Distance 2 = 0
+Discrete Hamming Distance 2 = 0
+
+################################################################################################################################
+
+f1 =< ( 8.8 , 9.2 , 9.6 , 10 ) , 0.9 , 0.1 >  
+f2 =< ( 8.8 , 9.2 , 9.6 , 10 ) , 1 , 0 > 
+ 
+Integral Fuzzy Distance = 0.1000
+Discrete Fuzzy Distance = 0.0875
+Discrete Euclidean Distance = 1.0226
+Discrete Hamming Distance = 0.4707
+Discrete Fuzzy Distance 2 = 14.2337
+Discrete Euclidean Distance 2 = 1.0226
+Discrete Hamming Distance 2 = 0.9400
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+SEGUNDA PARTE: verificar as distâncias se estão de acordo considerando apenas mi = 1 e v = 0
+
+Medium = < ( 4 , 4.6 , 5.4 , 6 ) , 1 , 0 >  
+High = < ( 5.5 , 6.3 , 7.1 , 7.8 ) , 1 , 0 > 
+ 
+Integral Fuzzy Distance = 2.3721
+Discrete Fuzzy Distance = 0.0729
+Discrete Euclidean Distance = 0.7969
+Discrete Hamming Distance = 0.7290
+Discrete Fuzzy Distance 2 =  7.9683
+Discrete Euclidean Distance 2 = 0.7969
+Discrete Hamming Distance 2 = 1.6750
+
+
+
+Medium =< ( 4 , 4.6 , 5.4 , 6 ) , 1 , 0 >  
+Low =< ( 3 , 3.8 , 4.6 , 5.4 ) , 1 , 0 > 
+ 
+Integral Fuzzy Distance = 1.1431
+Discrete Fuzzy Distance = 0.0533
+Discrete Euclidean Distance = 0.6146
+Discrete Hamming Distance = 0.5333
+Discrete Fuzzy Distance 2 = 6.1472
+Discrete Euclidean Distance 2 = 0.6146
+Discrete Hamming Distance 2 = 0.8000
+
+
+
+High =< ( 5.5 , 6.3 , 7.1 , 7.8 ) , 1 , 0 > 
+Very_High =< ( 7 , 7.4 , 7.8 , 8.2 ) , 1 , 0 > 
+ 
+Integral Fuzzy Distance = 1.4189
+Discrete Fuzzy Distance = 0.0655
+Discrete Euclidean Distance = 0.7289
+Discrete Hamming Distance = 0.6548
+Discrete Fuzzy Distance 2 = 7.2885
+Discrete Euclidean Distance 2 = 0.7289
+Discrete Hamming Distance 2 = 0.9250
+
+
+
+Low =< ( 3 , 3.8 , 4.6 , 5.4 ) , 1 , 0 >  
+Very_High =< ( 7 , 7.4 , 7.8 , 8.2 ) , 1 , 0 > 
+ 
+Integral Fuzzy Distance = 4.8442
+Discrete Fuzzy Distance = 0.0461
+Discrete Euclidean Distance = 0.6202
+Discrete Hamming Distance = 0.4612
+Discrete Fuzzy Distance 2 = 6.2001
+Discrete Euclidean Distance 2 = 0.6202
+Discrete Hamming Distance 2 = 3.4000
+
+
+
+
+
+
+Very_High = < ( 7 , 7.4 , 7.8 , 8.2 ) , 1 , 0 >  
+Extremely_Low = < ( 0.1 , 0.8 , 1.5 , 2.2 ) , 1 , 0 > 
+ 
+Integral Fuzzy Distance = 9.1324
+Discrete Fuzzy Distance = 0.0271
+Discrete Euclidean Distance = 0.4757
+Discrete Hamming Distance = 0.2714
+Discrete Fuzzy Distance 2 = 4.7599
+Discrete Euclidean Distance 2 = 0.4757
+Discrete Hamming Distance 2 = 6.4500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
