@@ -36,7 +36,7 @@ Weights = [0.5107 0.4893];
 IFM = IntuitionistFuzzyMatrix(CBVector,MatrixD_Normalized,Weights);
 
 IFM.matrixD;
-teta = 1;
+teta = 1.0;
 
 TODIM (IFM,teta);
 

@@ -75,7 +75,7 @@ function sa = sum_arc (weights,nCol,ref)
     sa = 0;
     for c=1:nCol
         sa = sa + arc(weights,c,ref);
-    end %for    
+    end % for    
 end %sum_arc
 
 %finding the matrix relevance
