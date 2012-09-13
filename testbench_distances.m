@@ -3,10 +3,25 @@
 %   Distances Testbench
 %
 %%%%%%
+%Load Ratings.m
+Ratings
+D = [ IntuitionistFuzzyNumber(Very_Low) IntuitionistFuzzyNumber(Medium);
+	IntuitionistFuzzyNumber(Very_High) IntuitionistFuzzyNumber(Extremely_High);
+	IntuitionistFuzzyNumber(High) IntuitionistFuzzyNumber(Medium);
+	IntuitionistFuzzyNumber(Very_High) IntuitionistFuzzyNumber(Medium);
+    IntuitionistFuzzyNumber(Extremely_High) IntuitionistFuzzyNumber(Medium);
+    IntuitionistFuzzyNumber(Extremely_Low) IntuitionistFuzzyNumber(Medium);
+    IntuitionistFuzzyNumber(Medium) IntuitionistFuzzyNumber(Medium);
+    IntuitionistFuzzyNumber(Low) IntuitionistFuzzyNumber(Medium) ];
 
 
-f1 = IntuitionistFuzzyNumber([0 1 2 3]);
-f2 = IntuitionistFuzzyNumber([7 8 9 10]);
+f1 = IntuitionistFuzzyNumber(Very_High)
+f2 = IntuitionistFuzzyNumber(Extremely_Low)
+
+
+fprintf ('Integral Fuzzy Distance');
+% Integral Fuzzy Distance
+I4FN_fuzzyDistance(f1,f2)
 
 fprintf ('Discrete Fuzzy Distance');
 % Discrete Fuzzy Distance
