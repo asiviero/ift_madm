@@ -4,82 +4,41 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+MatrixD = [IntuitionistFuzzyNumber([7.7643 8.1957 9.0584 9.4897])    IntuitionistFuzzyNumber([4.7007 4.9619 5.4841 5.7453])
+    IntuitionistFuzzyNumber([8.8542 9.3461 10.3299 10.8218])    IntuitionistFuzzyNumber([3.6207 3.8218 4.2241 4.4253])
+    IntuitionistFuzzyNumber([9.3366 9.8553 10.8927 11.4114])    IntuitionistFuzzyNumber([3.1455 3.3203 3.6698 3.8445])
+    IntuitionistFuzzyNumber([7.3800 7.7900 8.6100 9.0200])    IntuitionistFuzzyNumber([5.0931 5.3761 5.9419 6.2249])
+    IntuitionistFuzzyNumber([5.2686 5.5613 6.1467 6.4394])    IntuitionistFuzzyNumber([7.1901 7.5896 8.3885 8.7879])
+    IntuitionistFuzzyNumber([7.2972 7.7026 8.5134 8.9188])    IntuitionistFuzzyNumber([5.2110 5.5005 6.0795 6.3690])
+    IntuitionistFuzzyNumber([6.1605 6.5027 7.1872 7.5295])    IntuitionistFuzzyNumber([6.3747 6.7289 7.4371 7.7913])
+    IntuitionistFuzzyNumber([5.1642 5.4511 6.0249 6.3118])    IntuitionistFuzzyNumber([7.4142 7.8261 8.6499 9.0618])
+    IntuitionistFuzzyNumber([4.1366 4.7104 6.1449 6.4318])    IntuitionistFuzzyNumber([5.7176 6.5414 8.6009 9.0128])
+    IntuitionistFuzzyNumber([5.6421 5.9556 6.5824 6.8959])    IntuitionistFuzzyNumber([7.0272 7.4176 8.1984 8.5888])
+    ];
+	
+MatrixD_Normalized = [
+	IntuitionistFuzzyNumber([0.5013 0.4420 0.3235 0.2642])    IntuitionistFuzzyNumber([0.2629 0.3070 0.3953 0.4394])
+    IntuitionistFuzzyNumber([0.3515 0.2839 0.1487 0.0810])    IntuitionistFuzzyNumber([0.0803 0.1143 0.1823 0.2163])
+    IntuitionistFuzzyNumber([0.2852 0.2139 0.0713 0.0000])    IntuitionistFuzzyNumber([0.0000 0.0295 0.0886 0.1181])
+    IntuitionistFuzzyNumber([0.5542 0.4978 0.3851 0.3287])    IntuitionistFuzzyNumber([0.3292 0.3770 0.4727 0.5205])
+    IntuitionistFuzzyNumber([0.8444 0.8042 0.7237 0.6835])    IntuitionistFuzzyNumber([0.6836 0.7512 0.8862 0.9537])
+    IntuitionistFuzzyNumber([0.5655 0.5098 0.3984 0.3426])    IntuitionistFuzzyNumber([0.3491 0.3981 0.4959 0.5449])
+    IntuitionistFuzzyNumber([0.7218 0.6747 0.5807 0.5336])    IntuitionistFuzzyNumber([0.5458 0.6057 0.7254 0.7853])
+    IntuitionistFuzzyNumber([0.8587 0.8193 0.7404 0.7010])    IntuitionistFuzzyNumber([0.7215 0.7911 0.9304 1.0000])
+    IntuitionistFuzzyNumber([1.0000 0.9211 0.7239 0.6845])    IntuitionistFuzzyNumber([0.4347 0.5740 0.9221 0.9917])
+    IntuitionistFuzzyNumber([0.7931 0.7500 0.6638 0.6207])    IntuitionistFuzzyNumber([0.6561 0.7221 0.8541 0.9201])
+	];
+	
 
-Matrix3 = [ 
-0.068 0.103 0.1 0.075 0.045 0.069 0.174 0
-0.091 0.064 0.067 0.05 0.045 0.046 0.087 0
-0.068 0.123 0.033 0.05 0.091 0.057 0.043 0
-0.068 0.044 0.067 0.075 0.091 0.057 0.174 0
-0.114 0.127 0.1 0.1 0.182 0.103 0.043 0.143
-0.045 0.031 0.067 0.075 0.045 0.057 0.043 0
-0.023 0.03 0.033 0.025 0.045 0.046 0 0.143
-0.114 0.028 0.067 0.075 0.045 0.069 0 0.143
-0.045 0.043 0.067 0.075 0 0.069 0 0
-0.045 0.042 0.033 0.075 0.045 0.057 0.043 0
-0.091 0.099 0.067 0.05 0.091 0.08 0.174 0.143
-0.023 0.032 0.33 0.025 0.045 0.057 0.087 0
-0.045 0.057 0.1 0.075 0.091 0.069 0.043 0.143
-0.068 0.113 0.1 0.075 0.091 0.092 0.087 0.143
-0.091 0.064 0.033 0.1 0.045 0.069 0.043 0.143
-        ];
+CBVector = [0 1];
+Weights = [0.5107 0.4893];
 
+IFM = IntuitionistFuzzyMatrix(CBVector,MatrixD_Normalized,Weights);
 
+IFM.matrixD;
+teta = 1;
 
-Matrix = [6.83 0.271 0.007 2669.2 0.360 11983.0
-          7.39 0.230 0.001 2326.3 0.302 7955.0
-          7.24 0.221 0.004 1586.9 0.330 11950.6
-          7.37 0.233 0.000 1946.5 0.266 20615.3
-          6.72 0.322 0.002 6739.0 0.288 5965.7
-          7.05 0.237 0.008 2876.8 0.366 4480.0
-          6.89 0.292 0.003 1522.7 0.324 48897.9
-          6.21 0.323 0.000 1020.6 0.349 161558.4
-          6.70 0.301 0.000 937.1 0.326 7310.3
-          7.77 0.201 0.007 1392.2 0.291 27974.0
-          6.36 0.357 0.004 1208.1 0.360 5601.7
-          6.79 0.306 0.009 849.3 0.294 5609.2
-          7.34 0.244 0.002 1436.2 0.279 5574.3
-          8.14 0.174 0.005 1217.7 0.317 23836.6 ];
-      
-Matrix3 = [ 
-           8.627 5.223
-        9.838 4.023
-        10.374 3.495
-        8.200 5.659
-        5.854 7.989
-        8.108 5.790
-        6.845 7.083
-        5.738 8.238
-        5.858 8.189
-        6.269 7.808
-            ];      
- 
- order = size(Matrix);
- m = order(1);
- n = order(2);
-    
-sum_lines = zeros(n,1);
- for i=1:m
-       for j=1:n
-            sum_lines(j) = sum_lines(j) + Matrix(i,j);
-       end
- end
-
-
-%Creating matrix of normalized alternatives' scores against criteria
-Normalized_Matrix = zeros(m,n);
-for j=1:n
-    for i=1:m
-        Normalized_Matrix(i,j) = Matrix(i,j) / sum_lines(j);
-    end
-end      
-
-weights3 = [0.5107 0.4893];
-
-weights = [0.16 0.18 0.15 0.20 0.18 0.13]; %normalized
-
-weights3 = [0.25 0.15 0.10 0.20 0.05 0.10 0.05 0.10];
-
-TODIM (Normalized_Matrix,weights);
+TODIM (IFM,teta);
 
 
 
