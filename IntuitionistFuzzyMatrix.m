@@ -71,7 +71,7 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
             matrixM
         end %calculateVectorMj
         
-        function matrixP = normalizeMatrixM (matrixFuzzy)
+       function matrixP = normalizeMatrixM (matrixFuzzy)
             matrixM = matrixFuzzy.calculateMatrixM;
             order = size(matrixFuzzy.matrixD);
             m = order(1);
@@ -137,6 +137,49 @@ classdef IntuitionistFuzzyMatrix < handle % Handle proprierty assures that all c
                 matrixFuzzy.vectorW(j) = (1-en(j))/(n-sumek);
             end %for
         end %weights
+        
+        % Normalization for TODIM
+        function normalizeDecisionMatrixTODIM (matrixFuzzy)
+            order = size(matrixFuzzy.matrixD);
+            m = order(1);
+            n = order (2);
+            vectorMax = zeros(n,1);
+            vectorMin = zeros(n,1);
+         
+            for j=1:n                
+                max = matrixFuzzy.matrixD(1,j).valuesSet(4);
+                min = matrixFuzzy.matrixD(1,j).valuesSet(1);                
+                for i=1:m
+                    if max < matrixFuzzy.matrixD(i,j).valuesSet(4)
+                        max = matrixFuzzy.matrixD(i,j).valuesSet(4);
+                    end% if                    
+                    if min > matrixFuzzy.matrixD(i,j).valuesSet(1)
+                        min = matrixFuzzy.matrixD(i,j).valuesSet(1);
+                    end %for                    
+                end %for
+                vectorMax(j) = max;
+                vectorMin(j) = min;
+            end %for
+            
+            
+            for j=1:n
+                if matrixFuzzy.vector_cost_or_benefit(j) == 0
+                    for i=1:m
+                        for v=1:4
+                            matrixFuzzy.matrixD(i,j).valuesSet(v) = (vectorMax(j)-matrixFuzzy.matrixD(i,j).valuesSet(v))/(vectorMax(j)-vectorMin(j));
+                        end %for
+                    end %for
+                elseif matrixFuzzy.vector_cost_or_benefit(j) == 1
+                    for i=1:m
+                        for v=1:4
+                            matrixFuzzy.matrixD(i,j).valuesSet(v) = (matrixFuzzy.matrixD(i,j).valuesSet(v)-vectorMin(j))/(vectorMax(j)-vectorMin(j));
+                        end %for    
+                    end %for                    
+                end%if
+            end %for
+            
+        end %normalizeMatrixD        
+        
         
         
         % Normalize Decision Matrix

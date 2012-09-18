@@ -47,7 +47,7 @@ end %reference
 %here may change the distance
 function d = distance (matrixD,alt_i,alt_j,c)
     if isa(matrixD(alt_i,c),'IntuitionistFuzzyNumber')
-        d = I4FN_fuzzyDistance(matrixD(alt_i,c),matrixD(alt_j,c));
+        d = I4FN_discreteHammingDistace2(matrixD(alt_i,c),matrixD(alt_j,c));
     else
         d = matrixD(alt_i,c) - matrixD(alt_j,c);
     end %if   
@@ -62,7 +62,8 @@ function m = defuzzified (matrixD,i,j)
 end %defuzzified
 
 function dm = diferenceFuzzified (matrixD,alt_i,alt_j,c)
-    dm = defuzzified (matrixD,alt_i,c) - defuzzified (matrixD,alt_j,c);
+    dm = I4FN_defuzzificationCOA(matrixD(alt_i,c)) - I4FN_defuzzificationCOA (matrixD(alt_j,c));
+    %dm = defuzzified (matrixD,alt_i,c) - defuzzified (matrixD,alt_j,c);
 end %diferenceFuzzified
 
 %alternance

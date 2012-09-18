@@ -33,12 +33,19 @@ MatrixD_Normalized = [
 CBVector = [0 1];
 Weights = [0.5107 0.4893];
 
-IFM = IntuitionistFuzzyMatrix(CBVector,MatrixD_Normalized,Weights);
+IFM = IntuitionistFuzzyMatrix(CBVector,MatrixD,Weights);
 
-IFM.matrixD;
-teta = 1.0;
 
-TODIM (IFM,teta);
+teta = 1;
+
+%IFM.normalizeDecisionMatrixTODIM;
+
+
+Ratings
+f = IntuitionistFuzzyNumber(High,0.7,0.2)
+I4FN_defuzzificationCOADiscrete(f)
+
+%TODIM (IFM,teta);
 
 
 
