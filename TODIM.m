@@ -59,11 +59,16 @@ function m = defuzzified (matrixD,i,j)
     a3 = matrixD (i,j).valuesSet(3);
     a4 = matrixD (i,j).valuesSet(4);    
     m = (a1+a2+a3+a4)/4;    
+    u = matrixD (i,j).informationConfidence;
+    v = matrixD (i,j).informationNonConfidence;
+    
+    m = m - m*(1-u)/2 - (m*v)/2;
+    
 end %defuzzified
 
 function dm = diferenceFuzzified (matrixD,alt_i,alt_j,c)
-    dm = I4FN_defuzzificationCOA(matrixD(alt_i,c)) - I4FN_defuzzificationCOA (matrixD(alt_j,c));
-    %dm = defuzzified (matrixD,alt_i,c) - defuzzified (matrixD,alt_j,c);
+    %dm = I4FN_defuzzificationCOA(matrixD(alt_i,c)) - I4FN_defuzzificationCOA (matrixD(alt_j,c));
+    dm = defuzzified (matrixD,alt_i,c) - defuzzified (matrixD,alt_j,c);
 end %diferenceFuzzified
 
 %alternance

@@ -11,7 +11,7 @@ MatrixD = [IntuitionistFuzzyNumber([7.7643 8.1957 9.0584 9.4897])    Intuitionis
     IntuitionistFuzzyNumber([5.2686 5.5613 6.1467 6.4394])    IntuitionistFuzzyNumber([7.1901 7.5896 8.3885 8.7879])
     IntuitionistFuzzyNumber([7.2972 7.7026 8.5134 8.9188])    IntuitionistFuzzyNumber([5.2110 5.5005 6.0795 6.3690])
     IntuitionistFuzzyNumber([6.1605 6.5027 7.1872 7.5295])    IntuitionistFuzzyNumber([6.3747 6.7289 7.4371 7.7913])
-    IntuitionistFuzzyNumber([5.1642 5.4511 6.0249 6.3118])    IntuitionistFuzzyNumber([7.4142 7.8261 8.6499 9.0618])
+    IntuitionistFuzzyNumber([5.1642 5.4511 6.0249 6.3118])    IntuitionistFuzzyNumber([7.4142 7.8261 8.6499 9.0618],0.5,0.4)
     IntuitionistFuzzyNumber([4.1366 4.7104 6.1449 6.4318])    IntuitionistFuzzyNumber([5.7176 6.5414 8.6009 9.0128])
     IntuitionistFuzzyNumber([5.6421 5.9556 6.5824 6.8959])    IntuitionistFuzzyNumber([7.0272 7.4176 8.1984 8.5888])
     ];
@@ -38,14 +38,14 @@ IFM = IntuitionistFuzzyMatrix(CBVector,MatrixD,Weights);
 
 teta = 1;
 
-%IFM.normalizeDecisionMatrixTODIM;
+IFM.normalizeDecisionMatrixTODIM;
 
 
-Ratings
-f = IntuitionistFuzzyNumber(High,0.7,0.2)
-I4FN_defuzzificationCOADiscrete(f)
+%Ratings
+%f = IntuitionistFuzzyNumber(High,0.7,0.2)
+%I4FN_defuzzificationCOADiscrete(f)
 
-%TODIM (IFM,teta);
+TODIM (IFM,teta);
 
 
 
