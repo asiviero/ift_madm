@@ -290,6 +290,8 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
 			end % integral
             
             
+            
+            
         % Defuzzification via Center of Area (Angelov) - please refer to
         % 'defuzz calculation.pdf' to further explanation in this code
         function defuzz = I4FN_defuzzificationCOA(I4FN)
@@ -311,6 +313,24 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
             );
         end % function
         
+        % Defuzzification via Center of Area (Angelov) - DISCRETE
+        function defuzz = I4FN_defuzzificationCOADiscrete(ifn)
+            n = 100; %interval size
+            min = ifn.valuesSet(1);
+            max = ifn.valuesSet(4);
+            interval = (max - min)/n; 
+            numerator = 0;
+            denominator = 0;
+            
+            for i=1:n
+                xi = (i-1)*interval + min;
+                numerator = numerator + (ifn.I4FN_pertinence(xi) - ifn.I4FN_non_pertinence(xi))*xi;
+                denominator = denominator + (ifn.I4FN_pertinence(xi) - ifn.I4FN_non_pertinence(xi));
+            end %for            
+            defuzz = numerator/denominator;           
+        end %I4FN_defuzzificationCOADiscrete
+        
+        
         % Discrete Fuzzy Distance
   		function distance = I4FN_discreteFuzzyDistance(ifn_a,ifn_b)
             sum_d = 0;
@@ -319,7 +339,7 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
             max_d = max(ifn_a.valuesSet(4),ifn_b.valuesSet(4));
             interval = (max_d - min_a)/n;            
 
-            for i=1:1001
+            for i=1:n
                 xi = (i-1)*interval + min_a;
                 sum_d = sum_d + (abs(ifn_a.I4FN_pertinence(xi) - ifn_b.I4FN_pertinence(xi)) + ...
                       abs(ifn_a.I4FN_non_pertinence(xi) - ifn_b.I4FN_non_pertinence(xi)) + ...

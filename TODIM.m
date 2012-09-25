@@ -13,20 +13,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-function TODIM (IFM,weights)
-%define teta
-teta = 1;
-
-order = size(IFM);
+function TODIM (IFM,teta,vWeights)
+order = size(IFM.matrixD);
 nLin = order(1); %number lines
 nCol = order(2);% number coluns
 
-c_ref = reference (weights); %reference
+if isa(IFM,'IntuitionistFuzzyMatrix')
+    matrixD = IFM.matrixD;
+    weights = IFM.vectorW;
+else
+    matrixD = IFM;
+    weights = vWeights;
+end %if
 
-
-valueGlobal (IFM,nLin,nCol,teta,c_ref,weights)
+c_ref = reference (IFM.vectorW); %reference
+valueGlobal (matrixD,nLin,nCol,teta,c_ref,weights)
 end
 
+%choosing the benchmark according to their weight
 function ref = reference (weights)
     order = size(weights);
     nCol = order(2);
@@ -40,44 +44,71 @@ function ref = reference (weights)
     end% for
 end %reference
 
-function d = distance (IFM,alt_i,alt_j,c)
-    d = IFM(alt_i,c) - IFM(alt_j,c);
+%here may change the distance
+function d = distance (matrixD,alt_i,alt_j,c)
+    if isa(matrixD(alt_i,c),'IntuitionistFuzzyNumber')
+        d = I4FN_discreteHammingDistace2(matrixD(alt_i,c),matrixD(alt_j,c));
+    else
+        d = matrixD(alt_i,c) - matrixD(alt_j,c);
+    end %if   
 end %distance
 
+function m = defuzzified (matrixD,i,j)
+    a1 = matrixD (i,j).valuesSet(1);
+    a2 = matrixD (i,j).valuesSet(2);
+    a3 = matrixD (i,j).valuesSet(3);
+    a4 = matrixD (i,j).valuesSet(4);    
+    m = (a1+a2+a3+a4)/4;    
+    u = matrixD (i,j).informationConfidence;
+    v = matrixD (i,j).informationNonConfidence;
+    
+    m = m - m*(1-u)/2 - (m*v)/2;
+    
+end %defuzzified
+
+function dm = diferenceFuzzified (matrixD,alt_i,alt_j,c)
+    %dm = I4FN_defuzzificationCOA(matrixD(alt_i,c)) - I4FN_defuzzificationCOA (matrixD(alt_j,c));
+    dm = defuzzified (matrixD,alt_i,c) - defuzzified (matrixD,alt_j,c);
+end %diferenceFuzzified
+
+%alternance
 function a = arc (weights,c,ref)
     a = weights(c)/weights(ref);
 end %arcs
 
+%sum alternances
 function sa = sum_arc (weights,nCol,ref)
     sa = 0;
     for c=1:nCol
         sa = sa + arc(weights,c,ref);
-    end %for    
+    end % for    
 end %sum_arc
 
-function matrixPhi = phi (IFM,nLin,nCol,teta,ref,weights)
+%finding the matrix relevance
+function matrixPhi = phi (matrixD,nLin,nCol,teta,ref,weights)
     matrixPhi = zeros(nCol,nLin,nLin);    
     for c = 1:nCol    
         for i = 1:nLin
             for j = 1:nLin    
-                d_ij = distance(IFM,i,j,c);
-                if d_ij == 0
+                d_ij = distance(matrixD,i,j,c);
+                m_ij = diferenceFuzzified(matrixD,i,j,c);
+                if m_ij == 0
                     matrixPhi(c,i,j) = 0;
 
-                elseif d_ij > 0
+                elseif m_ij > 0
                     matrixPhi(c,i,j) = sqrt(arc(weights,c,ref)*(d_ij)/(sum_arc (weights,nCol,ref)));
         
-                elseif d_ij < 0
-                    matrixPhi(c,i,j) = ((-1)/teta)*sqrt(sum_arc(weights,nCol,ref)*(d_ij*(-1))/(arc(weights,c,ref)));
+                elseif m_ij < 0
+                    matrixPhi(c,i,j) = ((-1)/teta)*sqrt(sum_arc(weights,nCol,ref)*(d_ij)/(arc(weights,c,ref)));
                 end %if
             end %for
         end %for
     end %for
 end %phi
 
-
-function matrixDelta = delta (IFM,nLin,nCol,teta,ref,weights)
-    matrixPhi = phi(IFM,nLin,nCol,teta,ref,weights);
+%finding the matrix relevance global
+function matrixDelta = delta (matrixD,nLin,nCol,teta,ref,weights)
+    matrixPhi = phi(matrixD,nLin,nCol,teta,ref,weights);
     matrixDelta = zeros(nLin,nLin);
     for i = 1:nLin
         for j = 1:nLin
@@ -89,9 +120,11 @@ function matrixDelta = delta (IFM,nLin,nCol,teta,ref,weights)
 end %delta
 
 
-function valueGlobal (IFM,nLin,nCol,teta,ref,weights)
-    matrixDelta = delta (IFM,nLin,nCol,teta,ref,weights);
+% Finding Ranking and normalization
+function valueGlobal (matrixD,nLin,nCol,teta,ref,weights)
+    matrixDelta = delta (matrixD,nLin,nCol,teta,ref,weights);
 
+  
     min = zeros(nLin,1);
     max = zeros(nLin,1);
     

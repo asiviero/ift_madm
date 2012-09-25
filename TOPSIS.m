@@ -65,8 +65,8 @@ function [vectorDPlus, vectorDLess] = distanceToIdeal (IFM)
         sumDPlus = 0;
         sumDLess = 0;
         for j=1:n
-            sumDPlus = sumDPlus + (I4FN_fuzzyDistance(IFM.matrixD(i,j),vector_PIS(j)));
-            sumDLess = sumDLess + (I4FN_fuzzyDistance(IFM.matrixD(i,j),vector_NIS(j)));
+            sumDPlus = sumDPlus + (I4FN_discreteHammingDistace2(IFM.matrixD(i,j),vector_PIS(j)));
+            sumDLess = sumDLess + (I4FN_discreteHammingDistace2(IFM.matrixD(i,j),vector_NIS(j)));
         end %for
         vectorDPlus(i) = sumDPlus;
         vectorDLess(i) = sumDLess;
