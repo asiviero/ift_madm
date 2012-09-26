@@ -181,10 +181,6 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
             ifn_result.informationNonConfidence = 1 - ((1-ifn.informationNonConfidence)^a);            
         end %mpower
         
-        
-        
-        
-		
         function ifn_result = sum(I4FN_vector)
             % Validation
             
@@ -234,6 +230,7 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
             S2 = I2*(u2-v2);
             H2 = I2*(u2+v2);
             
+            %Comparison
             if S1 > S2
                 result = 1;
             elseif S1 < S2

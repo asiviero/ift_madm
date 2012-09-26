@@ -53,6 +53,7 @@ function d = distance (matrixD,alt_i,alt_j,c)
     end %if   
 end %distance
 
+%defuzz defined in Khroling & Tatagiba
 function m = defuzzified (matrixD,i,j)
     a1 = matrixD (i,j).valuesSet(1);
     a2 = matrixD (i,j).valuesSet(2);
@@ -62,14 +63,13 @@ function m = defuzzified (matrixD,i,j)
     u = matrixD (i,j).informationConfidence;
     v = matrixD (i,j).informationNonConfidence;
     
-    m = m - m*(1-u)/2 - (m*v)/2;
-    
+    m = m - m*(1-u)/2 - (m*v)/2;    
 end %defuzzified
 
-function dm = diferenceFuzzified (matrixD,alt_i,alt_j,c)
+function c = comparison (matrixD,alt_i,alt_j,c)
     %dm = I4FN_defuzzificationCOA(matrixD(alt_i,c)) - I4FN_defuzzificationCOA (matrixD(alt_j,c));
     %dm = defuzzified (matrixD,alt_i,c) - defuzzified (matrixD,alt_j,c);
-    dm = cmp (matrixD(alt_i,c),matrixD(alt_j,c));
+    c = cmp (matrixD(alt_i,c),matrixD(alt_j,c));
 end %diferenceFuzzified
 
 %alternance
@@ -92,7 +92,7 @@ function matrixPhi = phi (matrixD,nLin,nCol,teta,ref,weights)
         for i = 1:nLin
             for j = 1:nLin    
                 d_ij = distance(matrixD,i,j,c);
-                m_ij = diferenceFuzzified(matrixD,i,j,c);
+                m_ij = comparison(matrixD,i,j,c);
                 if m_ij == 0
                     matrixPhi(c,i,j) = 0;
 
