@@ -311,6 +311,19 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
             );
         end % function
         
+        % Defuzzification via Centroid (Varghese & Kuriakose) - please refer to
+        % 'defuzz calculation 2.pdf' to further explanation in this code
+        function defuzz = I4FN_defuzzificationCentroid(I4FN)
+            
+            % Numerator
+            defuzz = (I4FN.valuesSet(2)-I4FN.valuesSet(1))*(I4FN.valuesSet(1)+2*I4FN.valuesSet(2))*(1+I4FN.informationConfidence-I4FN.informationNonConfidence)/12 + (I4FN.valuesSet(3)^2-I4FN.valuesSet(2)^2)*(I4FN.informationConfidence-I4FN.informationNonConfidence+1)/4 + (I4FN.informationConfidence-I4FN.informationNonConfidence+1)*(I4FN.valuesSet(4)-I4FN.valuesSet(3))*(2*I4FN.valuesSet(3)+I4FN.valuesSet(4))/12
+            
+            % Denominator
+            defuzz = defuzz / ( ...
+                (I4FN.valuesSet(2)-I4FN.valuesSet(1))*(I4FN.informationConfidence-I4FN.informationNonConfidence+1)/4 + (I4FN.valuesSet(3)-I4FN.valuesSet(2))*(I4FN.informationConfidence-I4FN.informationNonConfidence+1)/2 + (I4FN.valuesSet(4)-I4FN.valuesSet(3))*(I4FN.informationConfidence-I4FN.informationNonConfidence+1)/4 ...
+            );
+        end % function
+        
         % Defuzzification via Center of Area (Angelov) - DISCRETE
         function defuzz = I4FN_defuzzificationCOADiscrete(ifn)
             n = 100; %interval size
