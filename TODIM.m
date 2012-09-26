@@ -68,7 +68,8 @@ end %defuzzified
 
 function dm = diferenceFuzzified (matrixD,alt_i,alt_j,c)
     %dm = I4FN_defuzzificationCOA(matrixD(alt_i,c)) - I4FN_defuzzificationCOA (matrixD(alt_j,c));
-    dm = defuzzified (matrixD,alt_i,c) - defuzzified (matrixD,alt_j,c);
+    %dm = defuzzified (matrixD,alt_i,c) - defuzzified (matrixD,alt_j,c);
+    dm = cmp (matrixD(alt_i,c),matrixD(alt_j,c));
 end %diferenceFuzzified
 
 %alternance

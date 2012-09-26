@@ -205,50 +205,48 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
         
         %This function return 1 if ifn_1 is bigger than ifn2, -1 if ifn_1
         %is smaller than inf_2 and 0 if both are equal
-        %Defined in Wang and Liu
+        %DefinedSome Arithmetic Aggregation Operators within 
+        %Intuitionistic Trapezoidal Fuzzy Setting and Their 
+        %Application to Group Decision Making 
         function result = cmp (ifn_1,ifn_2)            
-            n = 100; %points number
-            min_a = min(ifn_1.valuesSet(1),ifn_2.valuesSet(1));
-            max_d = max(ifn_1.valuesSet(4),ifn_2.valuesSet(4));
-            interval = (max_d - min_a)/n;
-           
-            sum_pertinence_1 = 0;
-            sum_pertinence_2 = 0;
-            sum_non_pertinence_1 = 0;
-            sum_non_pertinence_2 = 0;
+            %number fuzzy 1
+            a1 = ifn_1.valuesSet(1);
+            b1 = ifn_1.valuesSet(2);
+            c1 = ifn_1.valuesSet(3);
+            d1 = ifn_1.valuesSet(4);
+            u1 = ifn_1.informationConfidence;
+            v1 = ifn_1.informationNonConfidence;            
             
-            for i=1:n
-                xi = (i-1)*interval + min_a;
-                sum_pertinence_1 = sum_pertinence_1 + ifn_1.I4FN_pertinence(xi);
-                sum_pertinence_2 = sum_pertinence_2 + ifn_2.I4FN_pertinence(xi);
-                sum_non_pertinence_1 = sum_non_pertinence_1 + ifn_1.I4FN_non_pertinence(xi);
-                sum_non_pertinence_2 = sum_non_pertinence_2 + ifn_2.I4FN_non_pertinence(xi);
-            end %for
+            %number fuzzy 2
+            a2 = ifn_2.valuesSet(1);
+            b2 = ifn_2.valuesSet(2);
+            c2 = ifn_2.valuesSet(3);
+            d2 = ifn_2.valuesSet(4);
+            u2 = ifn_2.informationConfidence;
+            v2 = ifn_2.informationNonConfidence;               
             
-            pertinence_1 = sum_pertinence_1/n; %average pertinence 1
-            pertinence_2 = sum_pertinence_2/n; %average pertinence 2
-            non_pertinence_1 = sum_non_pertinence_1/n; %average non pertinence 1
-            non_pertinence_2 = sum_non_pertinence_2/n; %average non pertinence 2
+            %finding I's,S's and H's
+            I1 = ((a1+b1+c1+d1)*(1+u1-v1))/8;
+            S1 = I1*(u1-v1);
+            H1 = I1*(u1+v1);
             
-            s1 = pertinence_1 - non_pertinence_1; %score 1
-            s2 = pertinence_2 - non_pertinence_2; %score 2
-            h1 = pertinence_1 + non_pertinence_1; %accuracy 1
-            h2 = pertinence_2 + non_pertinence_2; %accuracy 2
-
+            I2 = ((a2+b2+c2+d2)*(1+u2-v2))/8;
+            S2 = I2*(u2-v2);
+            H2 = I2*(u2+v2);
             
-            if s1 > s2
+            if S1 > S2
                 result = 1;
-            elseif s1 < s2
+            elseif S1 < S2
                 result = -1;
-            elseif s1 == s2
-                if h1 > h2
+            elseif S1 == S2
+                if H1 > H2
                     result = 1;
-                elseif h1 < h2
+                elseif H1 < H2
                     result = -1;
-                else
-                    result = 0;
-                end %if
-            end %if   
+                elseif H1 == H2
+                    result = 0;                    
+                end%if
+            end%if           
         end %cmp
         
 
