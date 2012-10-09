@@ -313,7 +313,7 @@ classdef IntuitionistFuzzyNumber < handle % Handle proprierty assures that all c
         function defuzz = I4FN_defuzzificationCentroid(I4FN)
             
             % Numerator
-            defuzz = (I4FN.valuesSet(2)-I4FN.valuesSet(1))*(I4FN.valuesSet(1)+2*I4FN.valuesSet(2))*(1+I4FN.informationConfidence-I4FN.informationNonConfidence)/12 + (I4FN.valuesSet(3)^2-I4FN.valuesSet(2)^2)*(I4FN.informationConfidence-I4FN.informationNonConfidence+1)/4 + (I4FN.informationConfidence-I4FN.informationNonConfidence+1)*(I4FN.valuesSet(4)-I4FN.valuesSet(3))*(2*I4FN.valuesSet(3)+I4FN.valuesSet(4))/12
+            defuzz = (I4FN.valuesSet(2)-I4FN.valuesSet(1))*(I4FN.valuesSet(1)+2*I4FN.valuesSet(2))*(1+I4FN.informationConfidence-I4FN.informationNonConfidence)/12 + (I4FN.valuesSet(3)^2-I4FN.valuesSet(2)^2)*(I4FN.informationConfidence-I4FN.informationNonConfidence+1)/4 + (I4FN.informationConfidence-I4FN.informationNonConfidence+1)*(I4FN.valuesSet(4)-I4FN.valuesSet(3))*(2*I4FN.valuesSet(3)+I4FN.valuesSet(4))/12;
             
             % Denominator
             defuzz = defuzz / ( ...

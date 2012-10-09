@@ -13,11 +13,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-function TODIM (IFM,teta,vWeights)
-order = size(IFM.matrixD);
-nLin = order(1); %number lines
-nCol = order(2);% number coluns
-
+function Ei = TODIM (IFM,teta,vWeights)
 if isa(IFM,'IntuitionistFuzzyMatrix')
     matrixD = IFM.matrixD;
     weights = IFM.vectorW;
@@ -26,8 +22,12 @@ else
     weights = vWeights;
 end %if
 
-c_ref = reference (IFM.vectorW); %reference
-valueGlobal (matrixD,nLin,nCol,teta,c_ref,weights)
+order = size(matrixD);
+nLin = order(1); %number lines
+nCol = order(2);% number coluns
+
+c_ref = reference (weights); %reference
+Ei = valueGlobal (matrixD,nLin,nCol,teta,c_ref,weights);
 end
 
 %choosing the benchmark according to their weight
@@ -69,7 +69,11 @@ end %defuzzified
 function c = comparison (matrixD,alt_i,alt_j,c)
     %dm = I4FN_defuzzificationCOA(matrixD(alt_i,c)) - I4FN_defuzzificationCOA (matrixD(alt_j,c));
     %dm = defuzzified (matrixD,alt_i,c) - defuzzified (matrixD,alt_j,c);
-    c = cmp (matrixD(alt_i,c),matrixD(alt_j,c));
+    if isa(matrixD(alt_i,c),'IntuitionistFuzzyNumber')
+        c = cmp (matrixD(alt_i,c),matrixD(alt_j,c));
+    else
+        c = matrixD(alt_i,c) - matrixD(alt_j,c);
+    end %if
 end %diferenceFuzzified
 
 %alternance
@@ -122,7 +126,7 @@ end %delta
 
 
 % Finding Ranking and normalization
-function valueGlobal (matrixD,nLin,nCol,teta,ref,weights)
+function finalValueNormalized = valueGlobal (matrixD,nLin,nCol,teta,ref,weights)
     matrixDelta = delta (matrixD,nLin,nCol,teta,ref,weights);
 
   
@@ -183,8 +187,8 @@ function valueGlobal (matrixD,nLin,nCol,teta,ref,weights)
     for i = 1:nLin
         finalValueNormalized(i) = finalValuePositive(i) / valueMax;
     end
-
-    bar(finalValueNormalized);    
+    
+    %bar(finalValueNormalized);    
 end %valueGlobal
 
 
