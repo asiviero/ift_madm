@@ -43,52 +43,23 @@ MatrixD_DEF = [
 %CBVector = [1 1 1 0];
 %Weights = [0.3500 0.2333 0.3000 0.1167];
 
-CBVector2 = [0 1];
-Weights2 = [0.6107 0.3893];
+%CBVector2 = [0 1];
+%Weights2 = [0.6107 0.3893];
 
-IFM2 = IntuitionistFuzzyMatrix(CBVector2,MatrixD2,Weights2);
+%IFM2 = IntuitionistFuzzyMatrix(CBVector2,MatrixD2,Weights2);
 
-CBVector = [0 1];
-Weights = [0.5107 0.4893];
+%CBVector = [0 1];
+%Weights = [0.5107 0.4893];
 
-IFM = IntuitionistFuzzyMatrix(CBVector,MatrixD,Weights);
+%IFM = IntuitionistFuzzyMatrix(CBVector,MatrixD_DEF,Weights);
 
 
 teta = 1;
 
-IFM.normalizeDecisionMatrixTODIM;
-IFM2.normalizeDecisionMatrixTODIM;
-%TODIM (IFM,teta,[0 0]);
+%IFM.normalizeDecisionMatrixTODIM;
+%IFM2.normalizeDecisionMatrixTODIM;
 
-
-Matrixes = [IFM];
-
-TODIM_group (Matrixes,teta,[0.5 0.5]);
-
-teste = [
-    0.1139    0.0823
-    0.1299    0.0634
-    0.1370    0.0550
-    0.1083    0.0891
-    0.0773    0.1258
-    0.1071    0.0912
-    0.0904    0.1115
-    0.0758    0.1297
-    0.0774    0.1290
-    0.0828    0.1230
-    ];
-
-
-%f1 = IntuitionistFuzzyNumber(Extremely_Low);
-%f2 = IntuitionistFuzzyNumber(High,0.5,0.3);
-%cmp (f1,f2)
-%I4FN_defuzzificationCOADiscrete(f)
-
-
-%Ratings
-%Fuzzy = IntuitionistFuzzyNumber(Extremely_High,0.5,0.4)
-%Fuzzy.I4FN_defuzzificationCentroid
-
+%TODIM (IFM,teta,[0 0])
 
 % Matrizes do teste de grupo
 
@@ -116,4 +87,15 @@ R3 = [
         IntuitionistFuzzyNumber([0.3 0.4 0.5 0.6],0.5,0.3) IntuitionistFuzzyNumber([0.4 0.5 0.6 0.7],0.3,0.4) IntuitionistFuzzyNumber([0.3 0.4 0.5 0.6],0.6,0.2) IntuitionistFuzzyNumber([0.6 0.7 0.8 0.9],0.4,0.4)
     ];
 
+CBVector = [1 1 1 0];
+Weights = [0.3500 0.2333 0.3000 0.1167];
+
+IFM_1 = IntuitionistFuzzyMatrix(CBVector,R1,Weights);
+IFM_2 = IntuitionistFuzzyMatrix(CBVector,R2,Weights);
+IFM_3 = IntuitionistFuzzyMatrix(CBVector,R3,Weights);
+
+
+Matrixes = [IFM_1 IFM_2 IFM_3];
+
+TODIM_group (Matrixes,teta,[0.2 0.5 0.3])
 

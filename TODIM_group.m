@@ -33,8 +33,6 @@ function TODIM_group (Matrixes,teta,vWeights)
         end %for        
     end%for
     
-    MatrixFinal
-    
     result = TODIM (MatrixFinal,teta,vWeights);
     
     

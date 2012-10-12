@@ -98,13 +98,11 @@ function matrixPhi = phi (matrixD,nLin,nCol,teta,ref,weights)
                 d_ij = distance(matrixD,i,j,c);
                 m_ij = comparison(matrixD,i,j,c);
                 if m_ij == 0
-                    matrixPhi(c,i,j) = 0;
-
+                    matrixPhi(c,i,j) = 0;                    
                 elseif m_ij > 0
-                    matrixPhi(c,i,j) = sqrt(arc(weights,c,ref)*(d_ij)/(sum_arc (weights,nCol,ref)));
-        
+                    matrixPhi(c,i,j) = sqrt(arc(weights,c,ref)*(d_ij)/(sum_arc (weights,nCol,ref)));                                       
                 elseif m_ij < 0
-                    matrixPhi(c,i,j) = ((-1)/teta)*sqrt(sum_arc(weights,nCol,ref)*(d_ij)/(arc(weights,c,ref)));
+                    matrixPhi(c,i,j) = ((-1)/teta)*sqrt(sum_arc(weights,nCol,ref)*(abs(d_ij))/(arc(weights,c,ref)));                                        
                 end %if
             end %for
         end %for
@@ -188,7 +186,7 @@ function finalValueNormalized = valueGlobal (matrixD,nLin,nCol,teta,ref,weights)
         finalValueNormalized(i) = finalValuePositive(i) / valueMax;
     end
     
-    %bar(finalValueNormalized);    
+    bar(finalValueNormalized);    
 end %valueGlobal
 
 
