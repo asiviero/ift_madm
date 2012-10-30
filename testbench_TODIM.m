@@ -40,8 +40,8 @@ MatrixD_DEF = [
 	
 
 %MatrixD_DEF
-%CBVector = [1 1 1 0];
-%Weights = [0.3500 0.2333 0.3000 0.1167];
+CBVector = [1 1 1 0];
+Weights = [0.3500 0.2333 0.3000 0.1167];
 
 %CBVector2 = [0 1];
 %Weights2 = [0.6107 0.3893];
@@ -51,7 +51,7 @@ MatrixD_DEF = [
 %CBVector = [0 1];
 %Weights = [0.5107 0.4893];
 
-%IFM = IntuitionistFuzzyMatrix(CBVector,MatrixD_DEF,Weights);
+IFM = IntuitionistFuzzyMatrix(CBVector,MatrixD_DEF,Weights);
 
 
 teta = 1;
@@ -59,7 +59,7 @@ teta = 1;
 %IFM.normalizeDecisionMatrixTODIM;
 %IFM2.normalizeDecisionMatrixTODIM;
 
-%TODIM (IFM,teta,[0 0])
+TODIM (IFM,teta,[0 0])
 
 % Matrizes do teste de grupo
 
@@ -97,5 +97,5 @@ IFM_3 = IntuitionistFuzzyMatrix(CBVector,R3,Weights);
 
 Matrixes = [IFM_1 IFM_2 IFM_3];
 
-TODIM_group (Matrixes,teta,[0.2 0.5 0.3])
+%TODIM_group (Matrixes,teta,[0.2 0.5 0.3])
 
